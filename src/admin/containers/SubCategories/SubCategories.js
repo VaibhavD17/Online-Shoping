@@ -6,7 +6,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useFormik } from 'formik';
 import { object, string } from 'yup';
 import { addCategories, deleteCategories, getCategories, updateCategories } from '../../../Redux/Slice/Categorie.slice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,41 +14,29 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import EditIcon from '@mui/icons-material/Edit';
+import { useFormik } from 'formik';
 
-function Categories(props) {
+function SubCategories(props) {
     const [open, setOpen] = React.useState(false);
     const [update, setUpdate] = useState('');
 
-    const dispatch = useDispatch()
+    const categories = useSelector(state => state.categories)
 
-    const categorie = useSelector(state => state.categories.categories)
+    console.log(categories);
     
 
     const getData = () => {
-        dispatch(getCategories())
+
     }
 
+    const handleAdd = () =>{
 
-    const handleAdd = async (data) => {
-
-        dispatch(addCategories(data));
     }
 
-    const handleDelete = (id) => {
-       dispatch(deleteCategories(id))
-    }
-
-    const handleEdit = (data) => {
-        setValues(data);
-        setUpdate(data.id)
-        handleClickOpen();
+   const handleUpdate = () =>{
         
-    };
-
-    const handleUpdate = (data) => {
-        dispatch(updateCategories(data));
     }
-    
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -64,39 +51,17 @@ function Categories(props) {
         getData()
     }, [])
 
-
-
-    const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
-        { field: 'categories', headerName: 'categories Name', width: 200 },
-        {
-            field: 'action', headerName: 'Action', width: 100,
-            renderCell: (params) => {                
-                return (
-                    <>
-                        <IconButton sx={{ color: red[500] }} aria-label="delete" onClick={() => handleDelete(params.row.id)}>
-                            <DeleteIcon />
-                        </IconButton>
-                        <IconButton sx={{ color: green[500] }} aria-label="edit" onClick={() => handleEdit(params.row)}>
-                            <EditIcon />
-                        </IconButton>
-                    </>
-                )
-            }
-        },
-    ];
-
-
-
-    let categorieSchema = object({
-        categories: string().required("Please Enter Categories.")
+    let SubcategorieSchema = object({
+        subcategories: string().required("Please Enter Categories."),
+        subcategoriesDesc: string().required("Please Enter Categories.")
     });
 
     const formik = useFormik({
         initialValues: {
-            categories: ''
+            subcategories: '',
+            subcategoriesDesc:''
         },
-        validationSchema: categorieSchema,
+        validationSchema: SubcategorieSchema,
         onSubmit: (values, { resetForm }) => {
 
             if (update) {
@@ -111,35 +76,49 @@ function Categories(props) {
     });
 
     const { handleSubmit, handleChange, handleBlur, resetForm, setValues,errors, values, touched } = formik
-
     return (
         <div>
-            <h1>Categories</h1>
+            <h1>SubCategories</h1>
             <React.Fragment>
                 <Button variant="outlined" onClick={handleClickOpen} style={{color: "#FFFFFF", background:"#3D464D"}} >
-                    Add Categories
+                    Add SubCategories
                 </Button>
                 <Dialog
                     open={open}
                     onClose={handleClose}
                 >
-                    <DialogTitle>Categories</DialogTitle>
+                    <DialogTitle>SubCategories</DialogTitle>
                     <form onSubmit={handleSubmit}>
                         <DialogContent>
                             <TextField
                                 required
                                 margin="dense"
                                 id="name"
-                                name="categories"
-                                label="Categories"
+                                name="subcategories"
+                                label="SubCategories Name"
                                 type="text"
                                 fullWidth
                                 variant="outlined"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values.categories}
-                                error={errors.categories && touched.categories}
-                                helperText={errors.categories && touched.categories ? errors.categories : ''}
+                                value={values.subcategories}
+                                error={errors.subcategories && touched.subcategories}
+                                helperText={errors.subcategories && touched.subcategories ? errors.subcategories : ''}
+                            />
+                            <TextField
+                                required
+                                margin="dense"
+                                id="name"
+                                name="subcategoriesDesc"
+                                label="SubCategories Description"
+                                type="text"
+                                fullWidth
+                                variant="outlined"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.subcategoriesDesc}
+                                error={errors.subcategoriesDesc && touched.subcategoriesDesc}
+                                helperText={errors.subcategoriesDesc && touched.subcategoriesDesc ? errors.subcategoriesDesc : ''}
                             />
                         </DialogContent>
                         <DialogActions>
@@ -149,24 +128,8 @@ function Categories(props) {
                     </form>
                 </Dialog>
             </React.Fragment>
-            <div style={{ height: 400, width: '100%', marginTop: 20 }}>
-                <DataGrid
-                    rows={categorie}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                            paginationModel: {
-                                page:0,
-                                pageSize: 5,
-                            },
-                        },
-                    }}
-                    pageSizeOptions={[5,10]}
-                    checkboxSelection
-                />
-            </div>
         </div>
     );
 }
 
-export default Categories;
+export default SubCategories;

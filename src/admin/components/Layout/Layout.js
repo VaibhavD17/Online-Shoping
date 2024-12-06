@@ -16,8 +16,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import CategoryIcon from '@mui/icons-material/Category';
+import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded';
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { blue, red } from '@mui/material/colors';
+import AutoAwesomeMotionRoundedIcon from '@mui/icons-material/AutoAwesomeMotionRounded';
 
 const drawerWidth = 240;
 
@@ -113,16 +117,17 @@ export default function Layout({children}) {
 
 
   const listItem = [
-    { label: 'Categories', icon: <CategoryIcon />, to: '/admin/categories' }
+    { label: 'Categories', icon: <CategoryRoundedIcon style={{color: "#FFFFFF",}}  />, to: '/admin/categories' },
+    { label: 'SubCategories', icon: <AutoAwesomeMotionRoundedIcon style={{color: "#FFFFFF",}} />, to: '/admin/subcategories' },
   ]
 
 
 
   return (
     <div>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex' }} >
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} style={{color: "#FFFFFF", background:"#3D464D"}} >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -136,26 +141,26 @@ export default function Layout({children}) {
               open && { display: 'none' },
             ]}
           >
-            <MenuIcon />
+            <MenuIcon  />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
            Shoping Admin
           </Typography>
         </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+      </AppBar >
+      <Drawer variant="permanent" open={open} >
+        <DrawerHeader >
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        <List >
           {listItem.map((v, i) => (
             <ListItem
             key={i}
             disablePadding
-            sx={{ display: 'block' }}
+            sx={{ display: 'block' , color:"#FFFFFF", background:"#3D464D", marginBottom:1}}
             component={NavLink}
             to={v.to}
         >

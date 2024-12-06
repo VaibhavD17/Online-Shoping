@@ -40,6 +40,8 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -157,9 +159,9 @@ a {
   background-color: transparent;
 }
 
-a:hover {
+/* a:hover {
   color: #e6b400;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:not([href]):not([class]) {
@@ -170,7 +172,7 @@ a:not([href]):not([class]) {
 a:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none;
-}
+} */
 
 pre,
 code,
