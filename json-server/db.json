@@ -1,24 +1,138 @@
 {
   "categories": [
     {
-      "id": "b009",
-      "categories": "Dresses"
+      "id": "f1b4",
+      "categories": "Clothing and Apparel"
     },
     {
-      "id": "bb56",
-      "categories": "Jeans"
+      "id": "90db",
+      "categories": "Electronics"
     },
     {
-      "id": "378a",
-      "categories": "Shoes"
+      "id": "d036",
+      "categories": "Beauty and Personal Care"
     },
     {
-      "id": "9dea",
-      "categories": "Shirts"
+      "id": "27bb",
+      "categories": "Sports"
     },
     {
-      "id": "8edb",
-      "categories": "Jackets"
+      "id": "13e9",
+      "categories": "Toys and Baby Product"
+    }
+  ],
+  "subCategories": [
+    {
+      "id": "bf81",
+      "categories": "f1b4",
+      "subcategories": "Man's",
+      "subcategoriesDesc": "Men's Clothing"
+    },
+    {
+      "id": "32f3",
+      "categories": "f1b4",
+      "subcategories": "Women's",
+      "subcategoriesDesc": "wwwww"
+    },
+    {
+      "id": "da69",
+      "categories": "f1b4",
+      "subcategories": "Kids",
+      "subcategoriesDesc": "kkkkk"
+    },
+    {
+      "id": "8926",
+      "categories": "f1b4",
+      "subcategories": "Accessories",
+      "subcategoriesDesc": "aaaaa"
+    },
+    {
+      "id": "8181",
+      "categories": "90db",
+      "subcategories": "Smartphones",
+      "subcategoriesDesc": "sssss"
+    },
+    {
+      "id": "f130",
+      "categories": "90db",
+      "subcategories": "Computer and Laptop",
+      "subcategoriesDesc": "clclclc"
+    },
+    {
+      "id": "bde2",
+      "categories": "90db",
+      "subcategories": "Home Appliances",
+      "subcategoriesDesc": "Homeeeeeeeee"
+    },
+    {
+      "id": "02e5",
+      "categories": "90db",
+      "subcategories": "Wearables",
+      "subcategoriesDesc": "wawawa"
+    },
+    {
+      "id": "a503",
+      "categories": "d036",
+      "subcategories": "Skincare",
+      "subcategoriesDesc": "sksksksk"
+    },
+    {
+      "id": "b5f6",
+      "categories": "d036",
+      "subcategories": "Hairecare",
+      "subcategoriesDesc": "hhhhhhh"
+    },
+    {
+      "id": "181a",
+      "categories": "d036",
+      "subcategories": "Makeup",
+      "subcategoriesDesc": "mmmmmm"
+    },
+    {
+      "id": "2976",
+      "categories": "27bb",
+      "subcategories": "Sports Equipment",
+      "subcategoriesDesc": "sesese"
+    },
+    {
+      "id": "fe88",
+      "categories": "27bb",
+      "subcategories": "Fitness Gear",
+      "subcategoriesDesc": "fgfggf"
+    },
+    {
+      "id": "d921",
+      "categories": "27bb",
+      "subcategories": "Outdoor Gear",
+      "subcategoriesDesc": "oooooo"
+    },
+    {
+      "id": "3326",
+      "categories": "13e9",
+      "subcategories": "Toys",
+      "subcategoriesDesc": "tttttt"
+    },
+    {
+      "id": "6de4",
+      "categories": "13e9",
+      "subcategories": "Baby Care",
+      "subcategoriesDesc": "bcbcbcb"
+    },
+    {
+      "id": "066a",
+      "categories": "13e9",
+      "subcategories": "Kids' Gear",
+      "subcategoriesDesc": "kgkggkg"
+    }
+  ],
+  "products": [
+    {
+      "id": "5eae",
+      "categories": "f1b4",
+      "subcategories": "32f3",
+      "products": "sdfsd",
+      "productsDesc": "dsghfdb",
+      "price": "50"
     }
   ]
 }

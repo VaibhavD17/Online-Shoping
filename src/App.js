@@ -13,12 +13,12 @@ function App() {
   return (
 
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      {/* <PersistGate persistor={persistor}> */}
         <Routes>
           <Route path='/*' element={<UserRoutes />}></Route>
           <Route path='/admin/*' element={<AdminRoutes />}></Route>
         </Routes>
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   );
 }
