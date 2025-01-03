@@ -127,12 +127,175 @@
   ],
   "products": [
     {
-      "id": "5eae",
+      "id": "efae",
+      "categories": "f1b4",
+      "subcategories": "bf81",
+      "products": "T-Shirts",
+      "productsDesc": "all size ",
+      "price": "400"
+    },
+    {
+      "id": "90f3",
+      "categories": "f1b4",
+      "subcategories": "bf81",
+      "products": "Shirt",
+      "productsDesc": "Coton ",
+      "price": "500"
+    },
+    {
+      "id": "007a",
       "categories": "f1b4",
       "subcategories": "32f3",
-      "products": "sdfsd",
-      "productsDesc": "dsghfdb",
+      "products": "Dresses",
+      "productsDesc": "avileble",
+      "price": "800"
+    },
+    {
+      "id": "af10",
+      "categories": "f1b4",
+      "subcategories": "da69",
+      "products": "Boy's wear",
+      "productsDesc": "small size",
+      "price": "250"
+    },
+    {
+      "id": "3998",
+      "categories": "f1b4",
+      "subcategories": "8926",
+      "products": "Belts",
+      "productsDesc": "Rather",
+      "price": "450"
+    },
+    {
+      "id": "e2ff",
+      "categories": "90db",
+      "subcategories": "8181",
+      "products": "Android Phones",
+      "productsDesc": "All Compny ",
+      "price": "12000"
+    },
+    {
+      "id": "c00e",
+      "categories": "90db",
+      "subcategories": "f130",
+      "products": "Desktops",
+      "productsDesc": "black color",
+      "price": "25000"
+    },
+    {
+      "id": "d4d0",
+      "categories": "90db",
+      "subcategories": "bde2",
+      "products": "Refrigerators",
+      "productsDesc": "nice deal",
+      "price": "15000"
+    },
+    {
+      "id": "b115",
+      "categories": "90db",
+      "subcategories": "02e5",
+      "products": "Smartwatches",
+      "productsDesc": "all type",
+      "price": "10000"
+    },
+    {
+      "id": "9291",
+      "categories": "d036",
+      "subcategories": "a503",
+      "products": "Moisturizers",
+      "productsDesc": "ssssss",
+      "price": "550"
+    },
+    {
+      "id": "6234",
+      "categories": "d036",
+      "subcategories": "b5f6",
+      "products": "Shampoos",
+      "productsDesc": "Alovira ",
+      "price": "130"
+    },
+    {
+      "id": "4aad",
+      "categories": "d036",
+      "subcategories": "181a",
+      "products": "Lipsticks",
+      "productsDesc": "red, pink",
+      "price": "100"
+    },
+    {
+      "id": "9f18",
+      "categories": "27bb",
+      "subcategories": "2976",
+      "products": "Balls",
+      "productsDesc": "Soccer, Basketball",
+      "price": "300"
+    },
+    {
+      "id": "26bd",
+      "categories": "27bb",
+      "subcategories": "fe88",
+      "products": "Dumbbells",
+      "productsDesc": "Gym Products",
+      "price": "2000"
+    },
+    {
+      "id": "0550",
+      "categories": "27bb",
+      "subcategories": "d921",
+      "products": "Tents",
+      "productsDesc": "rain cover",
+      "price": "5000"
+    },
+    {
+      "id": "dc0f",
+      "categories": "13e9",
+      "subcategories": "3326",
+      "products": "Educational Toys",
+      "productsDesc": "happy child",
+      "price": "1500"
+    },
+    {
+      "id": "7262",
+      "categories": "13e9",
+      "subcategories": "6de4",
+      "products": "Diapers",
+      "productsDesc": "all cover",
       "price": "50"
+    },
+    {
+      "id": "6903",
+      "categories": "13e9",
+      "subcategories": "066a",
+      "products": "Strollers",
+      "productsDesc": "axaxax",
+      "price": "200"
+    }
+  ],
+  "coupon": [
+    {
+      "id": "c598",
+      "code": "ABCD",
+      "discount": "10"
+    },
+    {
+      "id": "0dff",
+      "code": "WXYZ",
+      "discount": "80"
+    },
+    {
+      "id": "009f",
+      "code": "MNOP",
+      "discount": "20"
+    },
+    {
+      "id": "0deb",
+      "code": "VAIBHAV",
+      "discount": "90"
+    },
+    {
+      "id": "323f",
+      "code": "AAAA",
+      "discount": "5"
     }
   ]
 }

@@ -23,6 +23,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { blue, red } from '@mui/material/colors';
 import AutoAwesomeMotionRoundedIcon from '@mui/icons-material/AutoAwesomeMotionRounded';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 const drawerWidth = 240;
 
@@ -121,6 +122,7 @@ export default function Layout({children}) {
     { label: 'Categories', icon: <CategoryRoundedIcon style={{color: "#FFFFFF",}}  />, to: '/admin/categories' },
     { label: 'SubCategories', icon: <AutoAwesomeMotionRoundedIcon style={{color: "#FFFFFF",}} />, to: '/admin/subcategories' },
     { label: 'products', icon: <ShoppingBagIcon style={{color: "#FFFFFF",}} />, to: '/admin/products' },
+    { label: 'coupon', icon: <LocalOfferIcon style={{color: "#FFFFFF",}} />, to: '/admin/coupon' },
   ]
 
 

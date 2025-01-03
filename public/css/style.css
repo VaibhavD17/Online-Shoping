@@ -157,9 +157,10 @@ a {
   color: #FFD333;
   text-decoration: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
-/* a:hover {
+a:hover {
   color: #e6b400;
   text-decoration: none;
 }
@@ -172,7 +173,7 @@ a:not([href]):not([class]) {
 a:not([href]):not([class]):hover {
   color: inherit;
   text-decoration: none;
-} */
+}
 
 pre,
 code,
@@ -9715,4 +9716,14 @@ a.text-dark:hover, a.text-dark:focus {
   100% {
     transform: translateY(-15px);
   }
+}
+
+.categories_name {
+  display: inline-block;
+  padding: 7px;
+  margin: 5px 0 2px 5px;
+  border-radius: 5px;
+  font-size: 20px;
+  background-color: #FFD333;
+  color: #3D464D;
 }
