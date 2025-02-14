@@ -9,6 +9,10 @@ function Header(props) {
     const dispatch = useDispatch()
 
     const fData = cart.reduce((acc, v) => acc + v.qty, 0)
+
+    const favorite = useSelector(state => state.favorite.favorite)
+
+    
    
     
 
@@ -61,14 +65,14 @@ function Header(props) {
                             </div> */}
                         </div>
                         <div className="d-inline-flex align-items-center d-block d-lg-none">
-                            <a href className="btn px-0 ml-2">
+                            <NavLink to={'/favorite'}  className="btn px-0 ml-2">
                                 <i className="fas fa-heart text-dark" />
-                                <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>2</span>
-                            </a>
-                            <a href className="btn px-0 ml-2">
+                                <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>{favorite.length}</span>
+                            </NavLink>
+                            <NavLink to={'/cart'}  className="btn px-0 ml-2">
                                 <i className="fas fa-shopping-cart text-dark" />
-                                <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}></span>
-                            </a>
+                                <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>
+                            </NavLink>
                         </div>
                     </div>
                 </div>
@@ -138,10 +142,10 @@ function Header(props) {
                                     <NavLink to={'/contact'} className="nav-item nav-link">Contact</NavLink>
                                 </div>
                                 <div className="navbar-nav ml-auto py-0 d-none d-lg-block">
-                                    <a href className="btn px-0">
+                                    <NavLink to={'/favorite'} className="btn px-0">
                                         <i className="fas fa-heart text-primary" />
-                                        <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: 2 }}>0</span>
-                                    </a>
+                                        <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: 2 }}>{favorite.length}</span>
+                                    </NavLink>
                                     <NavLink to={'/cart'} className="btn px-0 ml-3">
                                         <i className="fas fa-shopping-cart text-primary" />
                                         <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>

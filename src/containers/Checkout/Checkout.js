@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 import { getProducts } from '../../Redux/Slice/Products.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Field, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { object, string, boolean } from 'yup';
+import { useNavigate } from "react-router-dom";
+import { emptyCartData } from '../../Redux/Slice/Cart.slice';
+import { addBilling } from '../../Redux/Slice/Checkout.slice';
 
 function Checkout(props) {
     const dispatch = useDispatch();
     let location = useLocation();
-
     const cart = useSelector(state => state.cart.cart)
     const products = useSelector(state => state.products.products)
+    const navigate = useNavigate();
 
     const fData = cart.map((v) => {
         const Pdata = products.find((v1) => v.pid === v1.id)
@@ -18,26 +21,33 @@ function Checkout(props) {
         return { ...Pdata, qty: v.qty }
     })
 
-    console.log(fData);
-
-    console.log(location.state);
-    
-    
-
-
-    const discounts =   location?.state?.discount ? location?.state?.discount : 0 ;
+    const discounts = location?.state?.discount ? location?.state?.discount : 0;
     const Subtotal = fData.reduce((acc, v) => acc + (v.price * v.qty), 0);
-    const discount_amount = discounts ?  ( Subtotal * discounts) / 100 : 0;
+    const discount_amount = discounts ? (Subtotal * discounts) / 100 : 0;
     const total = Subtotal - discount_amount;
 
 
     const getData = () => {
-        dispatch(getProducts)
+        dispatch(getProducts())
+
     }
 
+    const refreshCart = () => {
+
+        dispatch(emptyCartData())
+
+    }
+
+
+
     useEffect(() => {
-        getData()        
-    }, [])
+
+        getData()
+
+    }, []);
+
+
+
 
     let checkoutSchema = object({
         fname: string()
@@ -118,10 +128,26 @@ function Checkout(props) {
         },
         validationSchema: checkoutSchema,
         onSubmit: (values, { resetForm }) => {
-            console.log(values);
 
+            dispatch(addBilling({
+                user_id: 'vaibhav',
+                cart: cart,
+                total_amount:Subtotal,
+                billing_amount:total,
+                discount:parseInt(discounts),
+                billing_details:values,
+                createdAt: new Date(),
+                updateAt: new Date (),
+                status:'panding'
+
+            }))
+
+
+            navigate('/ordersuccess')
 
             resetForm()
+
+            refreshCart()
 
         },
     });
@@ -345,7 +371,7 @@ function Checkout(props) {
                                             <label className="custom-control-label" htmlFor="directcheck">Direct Check</label>
                                         </div>
                                     </div>
-                                    <div className="form-group mb-4">
+                                    <div className="form-group mb-3">
                                         <div className="custom-control custom-radio">
                                             <input
                                                 type="radio"
@@ -359,9 +385,9 @@ function Checkout(props) {
                                             <label className="custom-control-label" htmlFor="banktransfer">Bank Transfer</label>
                                         </div>
                                     </div>
-                                    <span className='error_validation'>{errors.payment && touched.payment ? errors.payment : ''}</span>
+                                    <span className='error_validation '>{errors.payment && touched.payment ? errors.payment : ''}</span>
 
-                                    <button type='submit' className="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
+                                    <button type='submit' className="btn btn-block btn-primary font-weight-bold  mt-3 py-3">Place Order</button>
                                 </div>
                             </div>
                         </div>

@@ -8,6 +8,8 @@ import ShopDetails from '../containers/ShopDetails/ShopDetails';
 import { Route, Routes } from 'react-router-dom';
 import Contacts from '../containers/Contacts/Contacts';
 import Shop from '../containers/Shop/Shop';
+import OrderSuccess from '../containers/OrderSuccess/OrderSuccess';
+import Favorite from '../containers/Favorite/Favorite';
 
 function UserRoutes(props) {
     return (
@@ -20,6 +22,8 @@ function UserRoutes(props) {
                 <Route path='checkout' element={<Checkout />}></Route>
                 <Route path='contact' element={<Contacts />}></Route>
                 <Route path='shop' element={<Shop />}></Route>
+                <Route path='ordersuccess' element={<OrderSuccess />}></Route>
+                <Route path='favorite' element={<Favorite />}></Route>
             </Routes>
             <Footer />
 

@@ -4,6 +4,9 @@ import { getCategories } from '../../Redux/Slice/Categorie.slice';
 import { getProducts } from '../../Redux/Slice/Products.slice';
 import { getSubCategories } from '../../Redux/Slice/Subcategorie.slice';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { NavLink } from 'react-router-dom';
+import { addtoCart } from '../../Redux/Slice/Cart.slice';
+import { addtoFavorite } from '../../Redux/Slice/Favorite.slice';
 
 function Home(props) {
     const [selectCategorie, setselectCategorie] = useState('')
@@ -11,6 +14,7 @@ function Home(props) {
     const categories = useSelector(state => state.categories.categories)
     const subCategories = useSelector(state => state.subCategories.subCategories)
     const products = useSelector(state => state.products.products)
+    const favorite = useSelector(state => state.favorite.favorite)
 
     const handleShortData = () => {
         const pData = products
@@ -28,7 +32,17 @@ function Home(props) {
         return pData
     }
 
+    console.log(categories);
+    
 
+    const handleCart = (data) => {
+        dispatch(addtoCart(data))
+    }
+
+
+    const handleFavorite = (data) => {
+        dispatch(addtoFavorite(data))
+    }
 
     const finalData = handleShortData();
 
@@ -164,7 +178,7 @@ function Home(props) {
                                 <a className="text-decoration-none" onClick={() => setselectCategorie(v.id)}>
                                     <div className="cat-item d-flex align-items-center mb-4">
                                         <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-                                        <img className="img-fluid" src="img/cate2.webp" alt />
+                                            <img className="img-fluid" src={"../img/"+v.cat_img} alt />
                                         </div>
                                         <div className="flex-fill pl-3">
                                             <h6>{v.categories}</h6>
@@ -183,37 +197,30 @@ function Home(props) {
             {/* Products Start */}
             <div className="container-fluid pt-5 pb-3">
                 <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4"><span className="bg-secondary pr-3">Featured Products </span></h2>
-                
+
                 <div className="row px-xl-5">
                     {
                         finalData.map((v) => (
                             <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
                                 <div className="product-item bg-light mb-4">
-                                <span className="h5 categories_name">{categories.map((c) => c.id === v.categories ? c.categories : '')}</span>
+                                    {/* <span className="h5 categories_name">{categories.map((c) => c.id === v.categories ? c.categories : '')}</span> */}
                                     <div className="product-img position-relative overflow-hidden">
-                                        <img className="img-fluid w-100" src="img/product-img1.avif" alt />
+                                        <img className="img-fluid product_image w-100" src={"../img/" + v.product_img} alt />
                                         <div className="product-action">
-                                            <a className="btn btn-outline-dark btn-square" href><i className="fa fa-shopping-cart" /></a>
-                                            <a className="btn btn-outline-dark btn-square" href><i className="far fa-heart" /></a>
+                                            <a onClick={() => handleCart(v)} className="btn btn-outline-dark btn-square" href><i className="fa fa-shopping-cart" /></a>
+                                            <a onClick={() => handleFavorite(v)} className={`btn  btn-square btn-outline-dark `} href><i className={` ${favorite.includes(v.id) ? 'fas fa-heart ' : ' far fa-heart'} `} /></a>
                                             <a className="btn btn-outline-dark btn-square" href><i className="fa fa-sync-alt" /></a>
                                             <a className="btn btn-outline-dark btn-square" href><i className="fa fa-search" /></a>
                                         </div>
                                     </div>
-                                    <div className="text-center py-4">
-
-                                         <a className="h4 text-decoration-none text-truncate" href>{v.products}</a>
+                                    <NavLink to={`/shopDetails/${v.id}`} className="d-block text-center py-4">
+                                        <a className="h4 text-decoration-none text-truncate" href>{v.products}</a>
                                         <div className="d-flex align-items-center justify-content-center mt-2 " >
                                             <h3><CurrencyRupeeIcon />{v.price}</h3>
                                         </div>
-                                        {/* <div className="d-flex align-items-center justify-content-center mb-1">
-                                            <small className="fa fa-star text-primary mr-1" />
-                                            <small className="fa fa-star text-primary mr-1" />
-                                            <small className="fa fa-star text-primary mr-1" />
-                                            <small className="fa fa-star text-primary mr-1" />
-                                            <small className="fa fa-star text-primary mr-1" />
-                                            <small>(99)</small>
-                                        </div> */}
-                                    </div>
+
+                                    </NavLink>
+
                                 </div>
                             </div>
                         ))
@@ -223,9 +230,9 @@ function Home(props) {
                 </div>
             </div>
             {/* Products End */}
-            
-           
-            
+
+
+
 
         </div>
 

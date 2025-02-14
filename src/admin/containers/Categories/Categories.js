@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useFormik } from 'formik';
-import { object, string } from 'yup';
+import { mixed, object, string } from 'yup';
 import { addCategories, deleteCategories, getCategories, updateCategories } from '../../../Redux/Slice/Categorie.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
@@ -22,7 +22,7 @@ function Categories(props) {
     const dispatch = useDispatch()
 
     const categorie = useSelector(state => state.categories.categories)
-    
+
 
     const getData = () => {
         dispatch(getCategories())
@@ -35,20 +35,20 @@ function Categories(props) {
     }
 
     const handleDelete = (id) => {
-       dispatch(deleteCategories(id))
+        dispatch(deleteCategories(id))
     }
 
     const handleEdit = (data) => {
         setValues(data);
         setUpdate(data.id)
         handleClickOpen();
-        
+
     };
 
     const handleUpdate = (data) => {
         dispatch(updateCategories(data));
     }
-    
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -68,9 +68,15 @@ function Categories(props) {
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         { field: 'categories', headerName: 'categories Name', width: 200 },
+        { field: 'cat_img', headerName: 'categories Image', width: 200, 
+            renderCell: (params) => (
+                <img src={ "../img/" + params.row.cat_img} width={"80px"} height={"80px"} />
+            )
+         },
+        
         {
             field: 'action', headerName: 'Action', width: 100,
-            renderCell: (params) => {                
+            renderCell: (params) => {
                 return (
                     <>
                         <IconButton sx={{ color: red[500] }} aria-label="delete" onClick={() => handleDelete(params.row.id)}>
@@ -88,20 +94,25 @@ function Categories(props) {
 
 
     let categorieSchema = object({
-        categories: string().required("Please Enter Categories.")
+        categories: string().required("Please Enter Categories."),
+        cat_img: mixed().required("Categories image is a required field")
     });
 
     const formik = useFormik({
         initialValues: {
-            categories: ''
+            categories: '',
+            cat_img: ''
         },
         validationSchema: categorieSchema,
         onSubmit: (values, { resetForm }) => {
 
+            console.log(values);
+            
             if (update) {
-                handleUpdate(values)
+                handleUpdate({...values , cat_img: typeof values.cat_img === "string" ? values.cat_img : values.cat_img.name})
+                
             } else {
-                handleAdd(values)
+                handleAdd({...values, cat_img:values.cat_img.name})
             }
 
             resetForm();
@@ -109,13 +120,18 @@ function Categories(props) {
         }
     });
 
-    const { handleSubmit, handleChange, handleBlur, resetForm, setValues,errors, values, touched } = formik
+    const { handleSubmit, handleChange, handleBlur, resetForm, setValues, errors, values, touched, setFieldValue } = formik
+
+    console.log(values);
+
+    
+    
 
     return (
         <div>
             <h1>Categories</h1>
             <React.Fragment>
-                <Button variant="outlined" onClick={handleClickOpen} style={{color: "#FFFFFF", background:"#3D464D"}} >
+                <Button variant="outlined" onClick={handleClickOpen} style={{ color: "#FFFFFF", background: "#3D464D" }} >
                     Add Categories
                 </Button>
                 <Dialog
@@ -126,7 +142,6 @@ function Categories(props) {
                     <form onSubmit={handleSubmit}>
                         <DialogContent>
                             <TextField
-                                required
                                 margin="dense"
                                 id="name"
                                 name="categories"
@@ -140,6 +155,20 @@ function Categories(props) {
                                 error={errors.categories && touched.categories}
                                 helperText={errors.categories && touched.categories ? errors.categories : ''}
                             />
+
+                            <span>Categorie Image :- </span> 
+                           
+                            <input
+                                type='file'
+                                name='cat_img'
+                                onChange={(e) => setFieldValue("cat_img", e.target.files[0])}
+                                onBlur={handleBlur}
+                            />
+                            <br />
+                            <img src={  typeof values.cat_img === "string" ?  "../img/" + values.cat_img : URL.createObjectURL(values.cat_img)} height={"80px"} width={"80px"} /> 
+                            <br />
+                            <span className='error_validation'>{errors.cat_img && touched.cat_img ? errors.cat_img : ''}</span>
+
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose}>Cancel</Button>
@@ -148,19 +177,20 @@ function Categories(props) {
                     </form>
                 </Dialog>
             </React.Fragment>
-            <div style={{ height: 400, width: '100%', marginTop: 20 }}>
+            <div style={{ height: '100%', width: '100%', marginTop: 20 }}>
                 <DataGrid
                     rows={categorie}
+                    rowHeight={100}
                     columns={columns}
                     initialState={{
                         pagination: {
                             paginationModel: {
-                                page:0,
-                                pageSize: 5,
+                                page: 0,
+                                // pageSize: 4,
                             },
                         },
                     }}
-                    pageSizeOptions={[5,10]}
+                    pageSizeOptions={[4, 10]}
                     checkboxSelection
                 />
             </div>

@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { object, string } from 'yup';
+import { mixed, object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -74,6 +74,12 @@ function SubCategories(props) {
         { field: 'subcategories', headerName: "SubCategories", width: 200 },
         { field: 'subcategoriesDesc', headerName: "SubCategories Description", width: 300 },
         {
+            field: 'subcat_img', headerName: "SubCategories Image", width: 200,
+            renderCell: (params) => (
+                <img src={"../img/" + params.row.subcat_img} width={"80px"} height={"80px"} />
+            )
+        },
+        {
             field: 'action', headerName: "Action", width: 100,
             renderCell: (params) => {
                 return (
@@ -94,22 +100,24 @@ function SubCategories(props) {
     let SubcategorieSchema = object({
         categories: string().required("Please Select Categories."),
         subcategories: string().required("Please Enter subcategories."),
-        subcategoriesDesc: string().required("Please Enter subcategories Description.")
+        subcategoriesDesc: string().required("Please Enter subcategories Description."),
+        subcat_img: mixed().required("subcategories image is a required field")
     });
 
     const formik = useFormik({
         initialValues: {
             categories: '',
             subcategories: '',
-            subcategoriesDesc: ''
+            subcategoriesDesc: '',
+            subcat_img: ''
         },
         validationSchema: SubcategorieSchema,
         onSubmit: (values, { resetForm }) => {
 
             if (update) {
-                handleUpdate(values)
+                handleUpdate({ ...values, subcat_img: typeof values.subcat_img === "string" ? values.subcat_img : values.subcat_img.name })
             } else {
-                handleAdd(values)
+                handleAdd({ ...values, subcat_img: values.subcat_img.name })
             }
 
             resetForm();
@@ -117,7 +125,7 @@ function SubCategories(props) {
         }
     });
 
-    const { handleSubmit, handleChange, handleBlur, resetForm, setValues, errors, values, touched } = formik
+    const { handleSubmit, handleChange, handleBlur, resetForm, setValues, errors, values, touched, setFieldValue } = formik
     return (
         <div>
             <h1>SubCategories</h1>
@@ -136,7 +144,6 @@ function SubCategories(props) {
                                 <InputLabel className={errors.categories && touched.categories ? 'error_validation' : ''} id="demo-simple-select-error-label">Categories</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-error-label"
-                                    required
                                     id="categories"
                                     name='categories'
                                     value={values.categories}
@@ -157,7 +164,6 @@ function SubCategories(props) {
                                 <FormHelperText className='error_validation'>{errors.categories && touched.categories ? errors.categories : ''}</FormHelperText>
                             </FormControl>
                             <TextField
-                                required
                                 margin="dense"
                                 id="name"
                                 name="subcategories"
@@ -172,7 +178,6 @@ function SubCategories(props) {
                                 helperText={errors.subcategories && touched.subcategories ? errors.subcategories : ''}
                             />
                             <TextField
-                                required
                                 margin="dense"
                                 id="name"
                                 name="subcategoriesDesc"
@@ -186,6 +191,16 @@ function SubCategories(props) {
                                 error={errors.subcategoriesDesc && touched.subcategoriesDesc}
                                 helperText={errors.subcategoriesDesc && touched.subcategoriesDesc ? errors.subcategoriesDesc : ''}
                             />
+                            <span>Subcategories Image :- </span>
+                            <input
+                                type='file'
+                                name='subcat_img'
+                                onChange={(e) => setFieldValue("subcat_img", e.target.files[0])}
+                                onBlur={handleBlur}
+                            />
+                            <img src={typeof values.subcat_img === "string" ? "../img/" + values.subcat_img : URL.createObjectURL(values.subcat_img)} width={"80px"} height={"80px"} />
+                            <br />
+                            <span className='error_validation'>{errors.subcat_img && touched.subcat_img ? errors.subcat_img : ''}</span>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose}>Cancel</Button>
@@ -194,7 +209,7 @@ function SubCategories(props) {
                     </form>
                 </Dialog>
             </React.Fragment>
-            <div style={{ height: 400, width: '100%', marginTop: 20 }}>
+            <div style={{ height: "100%", width: '100%', marginTop: 20 }}>
                 <DataGrid
                     rows={subCategories}
                     columns={columns}
@@ -202,12 +217,14 @@ function SubCategories(props) {
                         pagination: {
                             paginationModel: {
                                 page: 0,
-                                pageSize: 5,
+                                // pageSize: 5,
+
                             },
                         },
                     }}
                     pageSizeOptions={[5, 10]}
                     checkboxSelection
+                    rowHeight={100}
                 />
             </div>
         </div>

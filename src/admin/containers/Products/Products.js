@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { number, object, string } from 'yup';
+import { mixed, number, object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,7 +16,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useFormik } from 'formik';
 import { getSubCategories } from '../../../Redux/Slice/Subcategorie.slice';
 import { getCategories } from '../../../Redux/Slice/Categorie.slice';
-import { render } from '@testing-library/react';
 import { addProducts, deleteProducts, getProducts, updateProducts } from '../../../Redux/Slice/Products.slice';
 
 
@@ -30,7 +29,7 @@ function Products(props) {
     const products = useSelector(state => state.products.products)
 
     console.log(products);
-    
+
 
     const getData = () => {
         dispatch(getCategories())
@@ -87,11 +86,18 @@ function Products(props) {
         { field: 'products', headerName: "Products", width: 200 },
         { field: 'productsDesc', headerName: "productsDesc", width: 200 },
         { field: 'price', headerName: "price", width: 100 },
-        { field: 'action', headerName: "Action", width: 100 ,
-            renderCell:(params)=>{
+        {
+            field: 'product_img', headerName: "Products Image", width: 200,
+            renderCell: (params) => (
+                <img src={"../img/" + params.row.product_img} width={"80px"} height={"80px"} />
+            )
+        },
+        {
+            field: 'action', headerName: "Action", width: 100,
+            renderCell: (params) => {
                 return (
                     <>
-                    <IconButton sx={{ color: red[500] }} aria-label="delete" onClick={() => handleDelete(params.row.id)}>
+                        <IconButton sx={{ color: red[500] }} aria-label="delete" onClick={() => handleDelete(params.row.id)}>
                             <DeleteIcon />
                         </IconButton>
                         <IconButton sx={{ color: green[500] }} aria-label="edit" onClick={() => handleEdit(params.row)} >
@@ -101,7 +107,7 @@ function Products(props) {
                 )
             }
         },
-        
+
     ]
 
     let SubcategorieSchema = object({
@@ -110,27 +116,27 @@ function Products(props) {
         products: string().required("Please Enter Products."),
         productsDesc: string().required("Please Enter products Descriptions."),
         price: number().required("Please Enter Price."),
+        product_img: mixed().required("Products image is a required field")
     });
-    
+
     const formik = useFormik({
         initialValues: {
             categories: '',
             subcategories: '',
             products: '',
-            productsDesc:'',
-            price:''
+            productsDesc: '',
+            price: '',
+            product_img: ''
         },
         validationSchema: SubcategorieSchema,
         onSubmit: (values, { resetForm }) => {
 
             if (update) {
-                handleUpdate(values)
-                console.log(values);
-                
+                handleUpdate({ ...values, product_img: typeof values.product_img === "string" ? values.product_img : values.product_img.name })
+
             } else {
-                handleAdd(values)
-                console.log(values);
-                
+                handleAdd({ ...values, product_img: values.product_img.name })
+
             }
 
             resetForm();
@@ -138,7 +144,7 @@ function Products(props) {
         }
     });
 
-    const { handleSubmit, handleChange, handleBlur, resetForm, values, errors, touched, setValues } = formik;
+    const { handleSubmit, handleChange, handleBlur, resetForm, values, errors, touched, setValues, setFieldValue } = formik;
 
     return (
         <div>
@@ -158,7 +164,6 @@ function Products(props) {
                                 <InputLabel className={errors.categories && touched.categories ? 'error_validation' : ''} id="demo-simple-select-error-label">Categories</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-error-label"
-                                    required
                                     id="categories"
                                     name='categories'
                                     value={values.categories}
@@ -182,7 +187,6 @@ function Products(props) {
                                 <InputLabel className={errors.subcategories && touched.subcategories ? 'error_validation' : ''} id="demo-simple-select-error-label">SubCategories</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-error-label"
-                                    required
                                     id="subcategories"
                                     name='subcategories'
                                     value={values.subcategories}
@@ -193,7 +197,7 @@ function Products(props) {
                                 >
                                     {subCategories.filter((v) => v.categories === values.categories)?.map((c) => (
 
-                                   
+
                                         <MenuItem
                                             key={c.id}
                                             value={c.id}
@@ -206,7 +210,6 @@ function Products(props) {
 
                             </FormControl>
                             <TextField
-                                required
                                 margin="dense"
                                 id="name"
                                 name="products"
@@ -221,7 +224,6 @@ function Products(props) {
                                 helperText={errors.products && touched.products ? errors.products : ''}
                             />
                             <TextField
-                                required
                                 margin="dense"
                                 id="name"
                                 name="productsDesc"
@@ -236,7 +238,6 @@ function Products(props) {
                                 helperText={errors.productsDesc && touched.productsDesc ? errors.productsDesc : ''}
                             />
                             <TextField
-                                required
                                 margin="dense"
                                 id="name"
                                 name="price"
@@ -250,6 +251,19 @@ function Products(props) {
                                 error={errors.price && touched.price}
                                 helperText={errors.price && touched.price ? errors.price : ''}
                             />
+
+                            <span>Products Image :- </span>
+                            <input
+                                type='file'
+                                name='product_img'
+                                onChange={(e) => setFieldValue("product_img",e.target.files[0])}
+                                onBlur={handleBlur}
+                            />
+                            <br />
+                            <img src={typeof values.product_img === "string" ? "../img/" + values.product_img : URL.createObjectURL(values.product_img)} width={"80px"} height={"80px"} />
+                            <br />
+                            <span className='error_validation'>{errors.product_img && touched.product_img ? errors.product_img : ''}</span>
+
 
                         </DialogContent>
                         <DialogActions>
@@ -273,6 +287,7 @@ function Products(props) {
                     }}
                     pageSizeOptions={[5, 10]}
                     checkboxSelection
+                    rowHeight={100}
                 />
             </div>
         </div>

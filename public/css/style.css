@@ -534,7 +534,7 @@ mark,
 
 .img-fluid {
   max-width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .img-thumbnail {
@@ -9726,4 +9726,194 @@ a.text-dark:hover, a.text-dark:focus {
   font-size: 20px;
   background-color: #FFD333;
   color: #3D464D;
+}
+
+.order-success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
+  max-width: 500px;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background-color: #FFD333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  animation: bounce 1s infinite;
+}
+
+.success-icon svg {
+  width: 50%;
+  height: 50%;
+  color: #fff;
+}
+
+.success-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.go-home-btn {
+  background-color:#FFD333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.go-home-btn:hover {
+  background-color:#3D464D ;
+}
+
+ @keyframes bounce {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-10px);
+  }
+}
+
+
+/* General Order Data Styling */
+.orderData {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.orderSection {
+  margin-bottom: 20px;
+}
+
+.orderDetail-Data {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
+}
+
+.productname,
+.orderQuantity,
+.orderPrice {
+  font-weight: bold;
+  color: #555;
+}
+
+.orderDetail-total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #f2f2f2;
+  border-radius: 6px;
+}
+
+.totalQuantity {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.bill-amount-order {
+  text-align: right;
+  font-size: 1.1em;
+  color: #f27f26;
+}
+
+.bill-amount-order div {
+  margin-bottom: 5px;
+}
+
+/* Card Styling for Order Summary */
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+  padding: 30px;
+}
+
+.card-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #3a3a3a;
+}
+
+.card-text {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+/* Button Styling */
+.submit-btn {
+  padding: 12px 30px;
+  font-size: 1em;
+  font-weight: bold;
+  background-color: #0066cc;
+  color: #fff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #005bb5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dataOrder {
+  flex: 1;
+  padding: 0 10px;
+}
+
+.orderDetail-Data {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.orderData {
+  display: flex;
+  flex-direction: column;
+}
+
+.product_image {
+  height: 250px !important;
+  object-fit:contain;
 }

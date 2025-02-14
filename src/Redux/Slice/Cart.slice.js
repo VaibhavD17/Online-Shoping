@@ -43,17 +43,20 @@ const CartSlice = createSlice({
         deleteCart:(state, action) => {
            const pid = action.payload;
 
-           const index = state.cart.findIndex((v) => v.pid === pid)
-
            const fData = state.cart.filter((v) => v.pid != pid)
 
            state.cart = fData
 
+        },
+
+        emptyCartData:(state, action) => {
+            state.cart = []
         }
+
 
     }
 })
 
-export const { addtoCart, increment, decrement, deleteCart } = CartSlice.actions;
+export const { addtoCart, increment, decrement, deleteCart, emptyCartData } = CartSlice.actions;
 
 export default CartSlice.reducer;

@@ -123,6 +123,7 @@ export default function Layout({children}) {
     { label: 'SubCategories', icon: <AutoAwesomeMotionRoundedIcon style={{color: "#FFFFFF",}} />, to: '/admin/subcategories' },
     { label: 'products', icon: <ShoppingBagIcon style={{color: "#FFFFFF",}} />, to: '/admin/products' },
     { label: 'coupon', icon: <LocalOfferIcon style={{color: "#FFFFFF",}} />, to: '/admin/coupon' },
+    { label: 'OrderList', icon: <ShoppingBagIcon style={{color: "#FFFFFF",}} />, to: '/admin/orderList' },
   ]
 
 
