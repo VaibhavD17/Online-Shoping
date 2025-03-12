@@ -2,19 +2,26 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getCategories } from '../../Redux/Slice/Categorie.slice';
+import { logoutUser } from '../../Redux/Slice/Auth.slice';
 
 function Header(props) {
     const categories = useSelector(state => state.categories.categories)
     const cart = useSelector(state => state.cart.cart)
     const dispatch = useDispatch()
+    const auth = useSelector(state => state.auth.auth)
 
     const fData = cart.reduce((acc, v) => acc + v.qty, 0)
 
     const favorite = useSelector(state => state.favorite.favorite)
 
+    console.log(cart);
     
-   
-    
+
+
+    const handleLogout = () => {
+        dispatch(logoutUser())
+    }
+
 
     const getData = () => {
         dispatch(getCategories())
@@ -31,48 +38,62 @@ function Header(props) {
             <div className="container-fluid">
                 <div className="row bg-secondary py-1 px-xl-5">
                     <div className="col-lg-6 d-none d-lg-block">
-                        {/* <div className="d-inline-flex align-items-center h-100">
-                            <a className="text-body mr-3" href>About</a>
-                            <a className="text-body mr-3" href>Contact</a>
-                            <a className="text-body mr-3" href>Help</a>
-                            <a className="text-body mr-3" href>FAQs</a>
-                        </div> */}
+
                     </div>
                     <div className="col-lg-6 text-center text-lg-right">
                         <div className="d-inline-flex align-items-center">
-                            <div className="btn-group">
-                                <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                    <button className="dropdown-item" type="button">Sign in</button>
-                                    <button className="dropdown-item" type="button">Sign up</button>
-                                </div>
-                            </div>
-                            {/* <div className="btn-group mx-2">
-                                <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                    <button className="dropdown-item" type="button">EUR</button>
-                                    <button className="dropdown-item" type="button">GBP</button>
-                                    <button className="dropdown-item" type="button">CAD</button>
-                                </div>
+                        <div className="btn-group">
+                                {
+                                    auth ? 
+                                    <p>User Name :{auth.name}</p> 
+                                    : 
+                                    null
+                                }
+
                             </div>
                             <div className="btn-group">
-                                <button type="button" className="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                    <button className="dropdown-item" type="button">FR</button>
-                                    <button className="dropdown-item" type="button">AR</button>
-                                    <button className="dropdown-item" type="button">RU</button>
-                                </div>
-                            </div> */}
+                                {
+                                    auth ? <NavLink to={'/myorder'}>
+                                        <button type="button" className="btn btn-md btn-light mr-3 my-account-btn">My Order</button>
+                                    </NavLink>
+                                        :
+                                        null
+                                }
+
+                            </div>
+                            <div className="btn-group">
+
+                                {
+                                    auth ?
+                                        <button type="button" onClick={handleLogout} className="btn btn-md btn-light my-account-btn">Logout</button>
+                                        :
+                                        <NavLink to={'/login'}>
+                                            <button type="button" className="btn btn-md btn-light my-account-btn">Login</button>
+                                        </NavLink>
+                                }
+
+
+                            </div>
+
                         </div>
                         <div className="d-inline-flex align-items-center d-block d-lg-none">
-                            <NavLink to={'/favorite'}  className="btn px-0 ml-2">
+                            <NavLink to={'/favorite'} className="btn px-0 ml-2">
                                 <i className="fas fa-heart text-dark" />
                                 <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>{favorite.length}</span>
                             </NavLink>
-                            <NavLink to={'/cart'}  className="btn px-0 ml-2">
-                                <i className="fas fa-shopping-cart text-dark" />
-                                <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>
-                            </NavLink>
+                            {
+                               cart.length > 0 ?
+                                 <NavLink to={'/cart'} className="btn px-0 ml-2">
+                                    <i className="fas fa-shopping-cart text-dark" />
+                                    <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>
+                                </NavLink>
+                                    :
+                                    <button disabled className="btn px-0 ml-2 ">
+                                        <i className="fas fa-shopping-cart  text-dark"/>
+                                        <span className="badge  border border-dark  rounded-circle text-dark" style={{ paddingBottom: 2 }}>{fData}</span>
+                                    </button>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -109,10 +130,10 @@ function Header(props) {
                         </a>
                         <nav className="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style={{ width: 'calc(100% - 30px)', zIndex: 999 }}>
                             <div className="navbar-nav w-100">
-                                
+
                                 {
                                     categories.map((v) => (
-                                        <NavLink to={`/shop`}  key={v.id} className="nav-item nav-link">{v.categories}</NavLink>
+                                        <NavLink to={`/shop`} key={v.id} className="nav-item nav-link">{v.categories}</NavLink>
                                     ))
                                 }
                             </div>
@@ -120,10 +141,10 @@ function Header(props) {
                     </div>
                     <div className="col-lg-9">
                         <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-                            <a href className="text-decoration-none d-block d-lg-none">
+                            <NavLink to={'/'} href className="text-decoration-none d-block d-lg-none">
                                 <span className="h1 text-uppercase text-dark bg-light px-2">Multi</span>
                                 <span className="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
-                            </a>
+                            </NavLink>
                             <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                                 <span className="navbar-toggler-icon" />
                             </button>
@@ -131,14 +152,6 @@ function Header(props) {
                                 <div className="navbar-nav mr-auto py-0">
                                     <NavLink to={'/'} className="nav-item nav-link ">Home</NavLink>
                                     <NavLink to={'/shop'} className="nav-item nav-link">Shop</NavLink>
-                                    {/* <NavLink to={'/shopDetails/:id'} className="nav-item nav-link">Shop Detail</NavLink> */}
-                                    <div className="nav-item dropdown">
-                                        <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i className="fa fa-angle-down mt-1" /></a>
-                                        <div className="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                            <NavLink to={'/cart'} className="dropdown-item">Shopping Cart</NavLink>
-                                            <NavLink to={'/checkout'} className="dropdown-item">Checkout</NavLink>
-                                        </div>
-                                    </div>
                                     <NavLink to={'/contact'} className="nav-item nav-link">Contact</NavLink>
                                 </div>
                                 <div className="navbar-nav ml-auto py-0 d-none d-lg-block">
@@ -146,10 +159,19 @@ function Header(props) {
                                         <i className="fas fa-heart text-primary" />
                                         <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: 2 }}>{favorite.length}</span>
                                     </NavLink>
-                                    <NavLink to={'/cart'} className="btn px-0 ml-3">
+                                    {
+                                        cart.length > 0 ? <NavLink to={'/cart'} className="btn px-0 ml-3">
                                         <i className="fas fa-shopping-cart text-primary" />
                                         <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>
-                                    </NavLink>
+                                    </NavLink> 
+                                    : 
+                                     <button disabled className="btn px-0 ml-2 btn-disable">
+                                        <i className="fas fa-shopping-cart  btn-disable"/>
+                                        <span className="badge  border  rounded-circle btn-disable" style={{ paddingBottom: 2 }}>0</span>
+                                    </button>
+
+                                    }
+                                    
                                 </div>
                             </div>
                         </nav>

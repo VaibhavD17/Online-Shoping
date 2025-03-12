@@ -24,7 +24,7 @@ function Coupon(props) {
 
     const coupon = useSelector(state => state.coupon.coupon)
 
-    const handleAdd = (data)=>{
+    const handleAdd = (data) => {
         dispatch(addCoupon(data))
     }
 
@@ -88,7 +88,7 @@ function Coupon(props) {
 
             if (update) {
                 handleUpdate(values)
-            } else{
+            } else {
                 handleAdd(values);
             }
 
@@ -166,17 +166,20 @@ function Coupon(props) {
                 </Dialog>
             </React.Fragment>
 
-            <div style={{ height: 400, width: '100%' }}>
+            <div style={{ height: '100%', width: '100%' }}>
                 <DataGrid
                     rows={coupon}
                     columns={columns}
+                    style={{ padding: '20px' }}
+                    rowHeight={70}
                     initialState={{
                         pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
+                            paginationModel: {
+                                page: 0, 
+                                pageSize: 10
+                            },
                         },
                     }}
-                    pageSizeOptions={[5, 10]}
-                    checkboxSelection
                 />
             </div>
 

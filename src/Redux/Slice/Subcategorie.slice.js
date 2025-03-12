@@ -60,6 +60,32 @@ export const updateSubcategories = createAsyncThunk(
     }
 )
 
+export const updateSubcategorieStatus = createAsyncThunk(
+    'subCategories/updateSubcategorieStatus',
+    async (data) => {
+        try {
+
+            if (data.status === 'panding') {
+
+                const response = await axios.put(BASC_URL + 'subCategories/' + data.id, { ...data, status: 'active' })
+
+                return response.data
+
+            } else if (data.status === 'active') {
+
+                const response = await axios.put(BASC_URL + 'subCategories/' + data.id, { ...data, status: 'panding' })
+
+                return response.data
+            }
+
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+)
+
 const subcategorieSlice = createSlice({
     name: 'subCategories',
     initialState,
@@ -79,6 +105,15 @@ const subcategorieSlice = createSlice({
                     return action.payload
                 } else {
                     return v;
+                }
+            })
+        })
+        builder.addCase(updateSubcategorieStatus.fulfilled, (state, action) => {
+            state.subCategories = state.subCategories.map((v) => {
+                if (v.id === action.payload.id) {
+                    return action.payload
+                } else {
+                    return v
                 }
             })
         })

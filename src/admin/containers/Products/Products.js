@@ -10,25 +10,29 @@ import { mixed, number, object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FormControl, FormHelperText, IconButton, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { FormControl, FormHelperText, IconButton, InputLabel, MenuItem, OutlinedInput, Select, Switch } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import EditIcon from '@mui/icons-material/Edit';
 import { useFormik } from 'formik';
 import { getSubCategories } from '../../../Redux/Slice/Subcategorie.slice';
 import { getCategories } from '../../../Redux/Slice/Categorie.slice';
-import { addProducts, deleteProducts, getProducts, updateProducts } from '../../../Redux/Slice/Products.slice';
+import { addProducts, deleteProducts, getProducts, updateProducts, updateProductStatus } from '../../../Redux/Slice/Products.slice';
+
 
 
 function Products(props) {
     const [open, setOpen] = React.useState(false);
     const [update, setUpdate] = useState('');
     const dispatch = useDispatch();
-
     const categories = useSelector(state => state.categories.categories)
     const subCategories = useSelector(state => state.subCategories.subCategories)
     const products = useSelector(state => state.products.products)
+    const updateDate = new Date()
 
-    console.log(products);
+    const handleChangecheckd = (data) => {
+
+        dispatch(updateProductStatus(data))
+    }
 
 
     const getData = () => {
@@ -72,26 +76,27 @@ function Products(props) {
     const columns = [
         { field: 'id', headerName: "ID", width: 100 },
         {
-            field: "categories", headerName: 'Categories', width: 200,
+            field: "categories", headerName: 'Categories', width: 180,
             renderCell: (params) => {
                 return categories.find((v) => v.id === params.row.categories)?.categories
             }
         },
         {
-            field: "subcategories", headerName: 'SubCategories', width: 200,
+            field: "subcategories", headerName: 'SubCategories', width: 180,
             renderCell: (params) => {
                 return subCategories.find((v) => v.id === params.row.subcategories)?.subcategories
             }
         },
-        { field: 'products', headerName: "Products", width: 200 },
-        { field: 'productsDesc', headerName: "productsDesc", width: 200 },
+        { field: 'products', headerName: "Products", width: 150 },
+        { field: 'productsDesc', headerName: "productsDesc", width: 130 },
         { field: 'price', headerName: "price", width: 100 },
         {
-            field: 'product_img', headerName: "Products Image", width: 200,
+            field: 'product_img', headerName: "Products Image", width: 150,
             renderCell: (params) => (
                 <img src={"../img/" + params.row.product_img} width={"80px"} height={"80px"} />
             )
         },
+        { field: 'status', headerName: "status", width: 130 },
         {
             field: 'action', headerName: "Action", width: 100,
             renderCell: (params) => {
@@ -107,10 +112,24 @@ function Products(props) {
                 )
             }
         },
+        {
+            field: 'statusAction', headerName: "Status Action", width: 100,
+            renderCell: (params) => {
+                return (
+                    <>
+                        <Switch
+                            checked={params.row.status === 'active' ? true : false}
+                            onChange={() => handleChangecheckd(params.row)}
+                        />
+
+                    </>
+                )
+            }
+        },
 
     ]
 
-    let SubcategorieSchema = object({
+    let ProductSchema = object({
         categories: string().required("Please Select Categories."),
         subcategories: string().required("Please Select SubCategories."),
         products: string().required("Please Enter Products."),
@@ -126,16 +145,27 @@ function Products(props) {
             products: '',
             productsDesc: '',
             price: '',
-            product_img: ''
+            product_img: '',
         },
-        validationSchema: SubcategorieSchema,
+        validationSchema: ProductSchema,
         onSubmit: (values, { resetForm }) => {
 
             if (update) {
-                handleUpdate({ ...values, product_img: typeof values.product_img === "string" ? values.product_img : values.product_img.name })
+                handleUpdate({
+                    ...values,
+                    status: 'active',
+                    product_img: typeof values.product_img === "string" ? values.product_img : values.product_img.name,
+                    updateAt: updateDate,
+                })
 
             } else {
-                handleAdd({ ...values, product_img: values.product_img.name })
+                handleAdd({
+                    ...values,
+                    status: 'active',
+                    product_img: values.product_img.name,
+                    createdAt: new Date(),
+                    updateAt: new Date(),
+                })
 
             }
 
@@ -256,7 +286,7 @@ function Products(props) {
                             <input
                                 type='file'
                                 name='product_img'
-                                onChange={(e) => setFieldValue("product_img",e.target.files[0])}
+                                onChange={(e) => setFieldValue("product_img", e.target.files[0])}
                                 onBlur={handleBlur}
                             />
                             <br />
@@ -273,20 +303,24 @@ function Products(props) {
                     </form>
                 </Dialog>
             </React.Fragment>
-            <div style={{ height: 400, width: '100%', marginTop: 20 }}>
+            <div style={{ height: '100%', width: '100%', marginTop: 20,}}>
                 <DataGrid
+                style={{padding: '20px'}}
                     rows={products}
                     columns={columns}
                     initialState={{
                         pagination: {
                             paginationModel: {
                                 page: 0,
-                                pageSize: 5,
+                                pageSize: 10,
+                                
                             },
+                            
                         },
+                        
                     }}
-                    pageSizeOptions={[5, 10]}
-                    checkboxSelection
+                    
+                
                     rowHeight={100}
                 />
             </div>

@@ -11,29 +11,60 @@ import { addtoFavorite } from '../../Redux/Slice/Favorite.slice';
 function Home(props) {
     const [selectCategorie, setselectCategorie] = useState('')
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.categories.categories)
-    const subCategories = useSelector(state => state.subCategories.subCategories)
-    const products = useSelector(state => state.products.products)
     const favorite = useSelector(state => state.favorite.favorite)
 
-    const handleShortData = () => {
-        const pData = products
+ const auth = useSelector(state => state.auth.auth)
 
-        if (selectCategorie) {
-            if (selectCategorie === 'all') {
-                return pData;
-            } else {
-                const cData = pData.filter((v) => (
-                    v.categories === selectCategorie
-                ))
-                return cData;
-            }
-        }
+ console.log(auth);
+ 
+    
+
+    const productsData = useSelector(state => state.products.products)
+    const products = productsData.filter((v) => v.status === 'active')
+
+    const categoriesData = useSelector(state => state.categories.categories)
+    const categories = categoriesData.filter((v) => v.status === 'active')
+
+
+
+    const handleShortData = () => {
+        const pData = products.reverse()
+
+        pData.splice(4)
+
+
+
+
+
+
+        // if (selectCategorie) {
+        //     if (selectCategorie === 'all') {
+        //         const categoriesID = categories.map((c) => c.id)
+
+        //         const fData = pData.filter((v) => categoriesID.includes(v.categories) )
+
+        //         return fData
+
+
+        //     } else {
+        //         const cData = pData.filter((v) => (
+        //             v.categories === selectCategorie
+        //         ))
+        //         return cData;
+        //     }
+        // } else {
+        //     const categoriesID = categories.map((c) => c.id)
+
+        //         const fData = pData.filter((v) => categoriesID.includes(v.categories) )
+
+        //         return fData
+        // }
+
         return pData
+
     }
 
-    console.log(categories);
-    
+
 
     const handleCart = (data) => {
         dispatch(addtoCart(data))
@@ -46,7 +77,6 @@ function Home(props) {
 
     const finalData = handleShortData();
 
-    console.log(finalData);
 
 
     const getData = () => {
@@ -160,7 +190,7 @@ function Home(props) {
                 <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4"><span className="bg-secondary pr-3">Categories</span></h2>
                 <div className="row px-xl-5 pb-3">
                     <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a className="text-decoration-none" onClick={() => setselectCategorie("all")} >
+                        <NavLink to={`/product/all_cate`} className="text-decoration-none" onClick={() => setselectCategorie("all")} >
                             <div className="cat-item d-flex align-items-center mb-4">
                                 <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
                                     <img className="img-fluid" src="img/cate2.webp" alt />
@@ -170,22 +200,22 @@ function Home(props) {
                                     <small className="text-body"></small>
                                 </div>
                             </div>
-                        </a>
+                        </NavLink>
                     </div>
                     {
                         categories.map((v) => (
                             <div className="col-lg-3 col-md-4 col-sm-6 pb-1">
-                                <a className="text-decoration-none" onClick={() => setselectCategorie(v.id)}>
+                                <NavLink to={`/subcategorie/${v.id}`} className="text-decoration-none" onClick={() => setselectCategorie(v.id)}>
                                     <div className="cat-item d-flex align-items-center mb-4">
                                         <div className="overflow-hidden" style={{ width: 100, height: 100 }}>
-                                            <img className="img-fluid" src={"../img/"+v.cat_img} alt />
+                                            <img className="img-fluid" src={"../img/" + v.cat_img} alt />
                                         </div>
                                         <div className="flex-fill pl-3">
                                             <h6>{v.categories}</h6>
                                             <small className="text-body"></small>
                                         </div>
                                     </div>
-                                </a>
+                                </NavLink>
                             </div>
                         ))
                     }
@@ -196,7 +226,7 @@ function Home(props) {
             {/* Categories End */}
             {/* Products Start */}
             <div className="container-fluid pt-5 pb-3">
-                <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4"><span className="bg-secondary pr-3">Featured Products </span></h2>
+                <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4"><span className="bg-secondary pr-3">New Products </span></h2>
 
                 <div className="row px-xl-5">
                     {
@@ -209,12 +239,15 @@ function Home(props) {
                                         <div className="product-action">
                                             <a onClick={() => handleCart(v)} className="btn btn-outline-dark btn-square" href><i className="fa fa-shopping-cart" /></a>
                                             <a onClick={() => handleFavorite(v)} className={`btn  btn-square btn-outline-dark `} href><i className={` ${favorite.includes(v.id) ? 'fas fa-heart ' : ' far fa-heart'} `} /></a>
-                                            <a className="btn btn-outline-dark btn-square" href><i className="fa fa-sync-alt" /></a>
-                                            <a className="btn btn-outline-dark btn-square" href><i className="fa fa-search" /></a>
                                         </div>
                                     </div>
                                     <NavLink to={`/shopDetails/${v.id}`} className="d-block text-center py-4">
-                                        <a className="h4 text-decoration-none text-truncate" href>{v.products}</a>
+                                    <div className="d-flex align-items-center justify-content-center mt-2 " >
+                                            <h3>{v?.products}</h3>
+                                        </div>
+                                        <div className="d-flex align-items-center justify-content-center mt-2 " >
+                                            <h4>{v?.productsDesc}</h4>
+                                        </div>
                                         <div className="d-flex align-items-center justify-content-center mt-2 " >
                                             <h3><CurrencyRupeeIcon />{v.price}</h3>
                                         </div>

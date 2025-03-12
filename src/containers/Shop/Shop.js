@@ -12,29 +12,41 @@ function Shop(props) {
 
     const [selectCategorie, setselectCategorie] = useState('')
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.categories.categories)
-    const products = useSelector(state => state.products.products)
+    const productsData = useSelector(state => state.products.products)
     const favorite = useSelector(state => state.favorite.favorite)
 
+    const products = productsData.filter((v) => v.status === 'active')
 
-    console.log(favorite);
-
+    const categoriesData = useSelector(state => state.categories.categories)
+    const categories = categoriesData.filter((v) => v.status === 'active')
 
 
     const handleShortData = () => {
 
-        const pData = products
+        const pData = products.reverse()
+        pData.splice(4)
 
-        if (selectCategorie) {
-            if (selectCategorie === 'all') {
-                return pData;
-            } else {
-                const cData = pData.filter((v) => (
-                    v.categories === selectCategorie
-                ))
-                return cData;
-            }
-        }
+        // if (selectCategorie) {
+        //     if (selectCategorie === 'all') {
+        //         const categoriesID = categories.map((v) => v.id)
+
+        //         const fData = pData.filter((v) => categoriesID.includes(v.categories))
+
+        //         return fData
+        //     } else {
+        //         const cData = pData.filter((v) => (
+        //             v.categories === selectCategorie
+        //         ))
+        //         return cData;
+        //     }
+        // } else {
+        //     const categoriesID = categories.map((v) => v.id)
+
+        //     const fData = pData.filter((v) => categoriesID.includes(v.categories))
+
+        //     return fData
+        // }
+
         return pData
     }
 
@@ -116,13 +128,16 @@ function Shop(props) {
                                         <img className="img-fluid w-100 product_image" src={"../img/" + v.product_img} alt />
                                         <div className="product-action">
                                             <a onClick={() => handleCart(v)} className="btn btn-outline-dark btn-square" href><i className="fa fa-shopping-cart" /></a>
-                                            <a onClick={() => handleFavorite(v)} className={`btn  btn-square btn-outline-dark `} href><i className={` ${favorite.includes(v.id) ? 'fas fa-heart ' :' far fa-heart'} `} /></a>
-                                            <a className="btn btn-outline-dark btn-square" href><i className="fa fa-sync-alt" /></a>
-                                            <a className="btn btn-outline-dark btn-square" href><i className="fa fa-search" /></a>
+                                            <a onClick={() => handleFavorite(v)} className={`btn  btn-square btn-outline-dark `} href><i className={` ${favorite.includes(v.id) ? 'fas fa-heart ' : ' far fa-heart'} `} /></a>
                                         </div>
                                     </div>
                                     <NavLink to={`/shopDetails/${v.id}`} className="d-block text-center py-4">
-                                        <a className="h4 text-decoration-none text-truncate" href>{v.products}</a>
+                                        <div className="d-flex align-items-center justify-content-center mt-2 " >
+                                            <h3>{v?.products}</h3>
+                                        </div>
+                                        <div className="d-flex align-items-center justify-content-center mt-2 " >
+                                            <h4>{v?.productsDesc}</h4>
+                                        </div>
                                         <div className="d-flex align-items-center justify-content-center mt-2 " >
                                             <h3><CurrencyRupeeIcon />{v.price}</h3>
                                         </div>

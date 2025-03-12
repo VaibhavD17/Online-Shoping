@@ -6,6 +6,8 @@ import CartSlice from "../Slice/Cart.slice"
 import CouponSlice from "../Slice/Coupon.slice"
 import CheckoutSlise from '../Slice/Checkout.slice'
 import FavoriteSlice from '../Slice/Favorite.slice'
+import AuthSlice from '../Slice/Auth.slice'
+import ContactSlice from '../Slice/Contact.slice'
 
 export const rootReducer = combineReducers({
     categories: categorieSlice,
@@ -14,5 +16,7 @@ export const rootReducer = combineReducers({
     cart:CartSlice,
     coupon:CouponSlice,
     checkout:CheckoutSlise,
-    favorite:FavoriteSlice
+    favorite:FavoriteSlice,
+    auth:AuthSlice,
+    contact:ContactSlice
 })

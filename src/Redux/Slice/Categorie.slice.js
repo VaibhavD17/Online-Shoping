@@ -66,6 +66,25 @@ export const updateCategories = createAsyncThunk(
     }
 )
 
+export const updateCategorieStatus = createAsyncThunk(
+    'categories/updateCategorieStatus',
+    async (data) => {
+        try {
+            if (data.status === 'panding') {
+                const response = await axios.put(BASC_URL + 'categories/'+ data.id, {...data, status:'active'})
+                return response.data;
+            } else if (data.status === 'active') {
+                const response = await axios.put(BASC_URL + 'categories/'+ data.id, {...data, status:'panding'})
+                return response.data;
+            }
+           
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+)
+
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
@@ -80,6 +99,15 @@ const categoriesSlice = createSlice({
             state.categories = state.categories.filter((v) => v.id != action.payload.id)
         })
         builder.addCase(updateCategories.fulfilled, (state, action) => {
+            state.categories = state.categories.map((v) => {
+                if (v.id === action.payload.id) {
+                    return action.payload;
+                } else {
+                    return v;
+                }
+            })
+        })
+        builder.addCase(updateCategorieStatus.fulfilled, (state, action) => {
             state.categories = state.categories.map((v) => {
                 if (v.id === action.payload.id) {
                     return action.payload;

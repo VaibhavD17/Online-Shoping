@@ -6,6 +6,7 @@ import SubCategories from '../admin/containers/SubCategories/SubCategories';
 import Products from '../admin/containers/Products/Products';
 import Coupon from '../admin/containers/Coupon/Coupon';
 import OrderList from '../admin/containers/OrderList/OrderList';
+import Contact from '../admin/containers/Contact/Contact';
 
 function AdminRoutes(props) {
     return (
@@ -17,6 +18,7 @@ function AdminRoutes(props) {
                     <Route path='products' element={<Products />}></Route>
                     <Route path='coupon' element={<Coupon />}></Route>
                     <Route path='orderList' element={<OrderList />}></Route>
+                    <Route path='contact' element={<Contact />}></Route>
                 </Routes>
             </Layout>
         </div>

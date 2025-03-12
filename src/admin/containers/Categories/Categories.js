@@ -7,11 +7,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useFormik } from 'formik';
 import { mixed, object, string } from 'yup';
-import { addCategories, deleteCategories, getCategories, updateCategories } from '../../../Redux/Slice/Categorie.slice';
+import { addCategories, deleteCategories, getCategories, updateCategories, updateCategorieStatus } from '../../../Redux/Slice/Categorie.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton } from '@mui/material';
+import { IconButton, Switch } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -23,6 +23,10 @@ function Categories(props) {
 
     const categorie = useSelector(state => state.categories.categories)
 
+
+    const handleStatus = (data) =>{
+        dispatch(updateCategorieStatus(data))
+    }
 
     const getData = () => {
         dispatch(getCategories())
@@ -67,15 +71,17 @@ function Categories(props) {
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
-        { field: 'categories', headerName: 'categories Name', width: 200 },
-        { field: 'cat_img', headerName: 'categories Image', width: 200, 
-            renderCell: (params) => (
-                <img src={ "../img/" + params.row.cat_img} width={"80px"} height={"80px"} />
-            )
-         },
-        
+        { field: 'categories', headerName: 'categories Name', width: 250 },
         {
-            field: 'action', headerName: 'Action', width: 100,
+            field: 'cat_img', headerName: 'categories Image', width: 200,
+            renderCell: (params) => (
+                <img src={"../img/" + params.row.cat_img} width={"80px"} height={"80px"} />
+            )
+        },
+        { field: 'status', headerName: 'status', width: 150 },
+
+        {
+            field: 'action', headerName: 'Action', width: 150,
             renderCell: (params) => {
                 return (
                     <>
@@ -85,6 +91,20 @@ function Categories(props) {
                         <IconButton sx={{ color: green[500] }} aria-label="edit" onClick={() => handleEdit(params.row)}>
                             <EditIcon />
                         </IconButton>
+                    </>
+                )
+            }
+        },
+        {
+            field: 'statusAction', headerName: 'Status Action', width: 150,
+            renderCell: (params) => {
+                return (
+                    <>
+                        <Switch
+                            checked={params.row.status === 'active' ? true : false}
+                            onChange={() => handleStatus(params.row)}
+
+                        />
                     </>
                 )
             }
@@ -107,12 +127,12 @@ function Categories(props) {
         onSubmit: (values, { resetForm }) => {
 
             console.log(values);
-            
+
             if (update) {
-                handleUpdate({...values , cat_img: typeof values.cat_img === "string" ? values.cat_img : values.cat_img.name})
-                
+                handleUpdate({ ...values, status: 'active', cat_img: typeof values.cat_img === "string" ? values.cat_img : values.cat_img.name })
+
             } else {
-                handleAdd({...values, cat_img:values.cat_img.name})
+                handleAdd({ ...values, status: 'active', cat_img: values.cat_img.name })
             }
 
             resetForm();
@@ -124,8 +144,8 @@ function Categories(props) {
 
     console.log(values);
 
-    
-    
+
+
 
     return (
         <div>
@@ -156,8 +176,8 @@ function Categories(props) {
                                 helperText={errors.categories && touched.categories ? errors.categories : ''}
                             />
 
-                            <span>Categorie Image :- </span> 
-                           
+                            <span>Categorie Image :- </span>
+
                             <input
                                 type='file'
                                 name='cat_img'
@@ -165,7 +185,7 @@ function Categories(props) {
                                 onBlur={handleBlur}
                             />
                             <br />
-                            <img src={  typeof values.cat_img === "string" ?  "../img/" + values.cat_img : URL.createObjectURL(values.cat_img)} height={"80px"} width={"80px"} /> 
+                            <img src={typeof values.cat_img === "string" ? "../img/" + values.cat_img : URL.createObjectURL(values.cat_img)} height={"80px"} width={"80px"} />
                             <br />
                             <span className='error_validation'>{errors.cat_img && touched.cat_img ? errors.cat_img : ''}</span>
 
@@ -182,16 +202,15 @@ function Categories(props) {
                     rows={categorie}
                     rowHeight={100}
                     columns={columns}
+                    style={{padding: '20px'}}
                     initialState={{
                         pagination: {
                             paginationModel: {
                                 page: 0,
-                                // pageSize: 4,
+                                pageSize: 10,
                             },
                         },
                     }}
-                    pageSizeOptions={[4, 10]}
-                    checkboxSelection
                 />
             </div>
         </div>

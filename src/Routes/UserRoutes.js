@@ -10,6 +10,10 @@ import Contacts from '../containers/Contacts/Contacts';
 import Shop from '../containers/Shop/Shop';
 import OrderSuccess from '../containers/OrderSuccess/OrderSuccess';
 import Favorite from '../containers/Favorite/Favorite';
+import Login from '../containers/Login/Login';
+import MyOrder from '../containers/MyOrder/MyOrder';
+import SubCategories from '../containers/SubCategories/SubCategories';
+import Product from '../containers/Product/Product';
 
 function UserRoutes(props) {
     return (
@@ -24,6 +28,11 @@ function UserRoutes(props) {
                 <Route path='shop' element={<Shop />}></Route>
                 <Route path='ordersuccess' element={<OrderSuccess />}></Route>
                 <Route path='favorite' element={<Favorite />}></Route>
+                <Route path='login' element={<Login />}></Route>
+                <Route path='myorder' element={<MyOrder />}></Route>
+                <Route path='subcategorie/:id' element={<SubCategories />}></Route>
+                <Route path='product/:id' element={<Product />}></Route>
+                <Route path='product' element={<Product />}></Route>
             </Routes>
             <Footer />
 

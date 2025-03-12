@@ -39,7 +39,7 @@ export const deleteProducts = createAsyncThunk(
     'products/deleteProducts',
     async (id) => {
         try {
-            const responce = await axios.delete(BASC_URL + 'products/'+id)
+            const responce = await axios.delete(BASC_URL + 'products/' + id)
             return responce.data;
         } catch (error) {
             console.log(error);
@@ -52,8 +52,31 @@ export const updateProducts = createAsyncThunk(
     'products/updateProducts',
     async (data) => {
         try {
-            const responce = await axios.put(BASC_URL + 'products/'+ data.id, data)
+            const responce = await axios.put(BASC_URL + 'products/' + data.id, data)
             return responce.data;
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+)
+
+export const updateProductStatus = createAsyncThunk(
+    'products/updateStatus',
+    async (data) => {
+        try {
+            if (data.status === 'panding') {
+                const response = await axios.put(BASC_URL + 'products/' + data.id, { ...data, status: 'active' })
+
+                return response.data
+
+            } else if (data.status === 'active') {
+                const response = await axios.put(BASC_URL + 'products/' + data.id, { ...data, status: 'panding' })
+
+                return response.data
+            }
+
+
         } catch (error) {
             console.log(error);
 
@@ -72,9 +95,18 @@ const ProductsSlice = createSlice({
             state.products = state.products.concat(action.payload);
         })
         builder.addCase(deleteProducts.fulfilled, (state, action) => {
-            state.products = state.products.filter((v)=> v.id != action.payload.id)
+            state.products = state.products.filter((v) => v.id != action.payload.id)
         })
         builder.addCase(updateProducts.fulfilled, (state, action) => {
+            state.products = state.products.map((v) => {
+                if (v.id === action.payload.id) {
+                    return action.payload
+                } else {
+                    return v;
+                }
+            })
+        })
+        builder.addCase(updateProductStatus.fulfilled, (state, action) => {
             state.products = state.products.map((v) => {
                 if (v.id === action.payload.id) {
                     return action.payload

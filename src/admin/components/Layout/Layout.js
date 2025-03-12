@@ -24,6 +24,8 @@ import { blue, red } from '@mui/material/colors';
 import AutoAwesomeMotionRoundedIcon from '@mui/icons-material/AutoAwesomeMotionRounded';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 const drawerWidth = 240;
 
@@ -123,7 +125,8 @@ export default function Layout({children}) {
     { label: 'SubCategories', icon: <AutoAwesomeMotionRoundedIcon style={{color: "#FFFFFF",}} />, to: '/admin/subcategories' },
     { label: 'products', icon: <ShoppingBagIcon style={{color: "#FFFFFF",}} />, to: '/admin/products' },
     { label: 'coupon', icon: <LocalOfferIcon style={{color: "#FFFFFF",}} />, to: '/admin/coupon' },
-    { label: 'OrderList', icon: <ShoppingBagIcon style={{color: "#FFFFFF",}} />, to: '/admin/orderList' },
+    { label: 'OrderList', icon: <ViewListIcon style={{color: "#FFFFFF",}} />, to: '/admin/orderList' },
+    { label: 'Contact', icon: <ContactPageIcon  style={{color: "#FFFFFF",}} />, to: '/admin/contact' },
   ]
 
 

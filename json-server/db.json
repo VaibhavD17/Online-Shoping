@@ -3,22 +3,20 @@
     {
       "id": "35e5",
       "categories": "Fashion & Apparel",
-      "cat_img": "Fashion & Apparel.avif"
+      "cat_img": "Fashion & Apparel.avif",
+      "status": "active"
     },
     {
       "id": "cce3",
       "categories": "Electronics & Gadgets",
-      "cat_img": "Electronic Categorie.jpg"
+      "cat_img": "Electronic Categorie.jpg",
+      "status": "active"
     },
     {
       "id": "ac7e",
       "categories": "Beauty & Personal Care",
-      "cat_img": "Beauty and Personal Care Categorie.avif"
-    },
-    {
-      "id": "5826",
-      "categories": "Sports ",
-      "cat_img": "Sports categorie.avif"
+      "cat_img": "Beauty and Personal Care Categorie.avif",
+      "status": "active"
     }
   ],
   "subCategories": [
@@ -26,106 +24,162 @@
       "id": "fd3b",
       "categories": "35e5",
       "subcategories": "Men’s Clothing",
-      "subcategoriesDesc": "Cotton",
-      "subcat_img": "Men’s Clothing.jpg"
+      "subcategoriesDesc": "T-Shirts, Jeans, Jackets, Suits, Ethnic Wear, Formal Shirts",
+      "subcat_img": "Men’s Clothing.jpg",
+      "status": "active"
     },
     {
       "id": "2fc4",
       "categories": "35e5",
       "subcategories": "Women’s Clothing ",
-      "subcategoriesDesc": "Cotton ",
-      "subcat_img": "Women’s Clothing.jpg"
+      "subcategoriesDesc": "Dresses, Sarees, Kurtis, Tops, Leggings, Skirts",
+      "subcat_img": "Women’s Clothing.jpg",
+      "status": "active"
     },
     {
       "id": "dbc2",
       "categories": "35e5",
       "subcategories": "Kids’ Clothing ",
-      "subcategoriesDesc": "Cotton ",
-      "subcat_img": "Kids’ Clothing.jpg"
+      "subcategoriesDesc": "Frocks, Shorts, Trousers, Ethnic Wear, School Uniforms",
+      "subcat_img": "Kids’ Clothing.jpg",
+      "status": "active"
     },
     {
       "id": "9e07",
       "categories": "35e5",
       "subcategories": "Footwear",
-      "subcategoriesDesc": "all size",
-      "subcat_img": "Footwear.jpg"
+      "subcategoriesDesc": "Sneakers, Sandals, Boots, Heels, Formal Shoes, Slippers",
+      "subcat_img": "Footwear.jpg",
+      "status": "active"
     },
     {
-      "id": "bae4",
+      "id": "06fa",
       "categories": "cce3",
       "subcategories": "Mobile Phones & Accessories ",
-      "subcategoriesDesc": "All Item",
-      "subcat_img": "Mobile Phones & Accessories.avif"
+      "subcategoriesDesc": "Smartphones, Feature Phones, Power Banks, Chargers, Screen Protectors",
+      "subcat_img": "Mobile Phones & Accessories.avif",
+      "status": "active"
     },
     {
-      "id": "b502",
+      "id": "71af",
+      "categories": "cce3",
+      "subcategories": "Laptops & Computers",
+      "subcategoriesDesc": "Laptops, Monitors, Keyboards, Mouse, Printers, External Storage",
+      "subcat_img": "Laptops & Computers.jpeg",
+      "status": "active"
+    },
+    {
+      "id": "d520",
       "categories": "ac7e",
       "subcategories": "Makeup",
-      "subcategoriesDesc": "Bride",
-      "subcat_img": "Makeup.jpg"
+      "subcategoriesDesc": "Lipsticks, Foundations, Eyeshadows, Mascaras, Nail Polishes",
+      "subcat_img": "Makeup.jpg",
+      "status": "active"
     },
     {
-      "id": "618c",
-      "categories": "5826",
-      "subcategories": "Sports Gear ",
-      "subcategoriesDesc": "All Item",
-      "subcat_img": "Sports Gear.webp"
+      "id": "a743",
+      "categories": "ac7e",
+      "subcategories": "Skincare ",
+      "subcategoriesDesc": "Moisturizers, Serums, Face Wash, Sunscreen, Face Masks",
+      "subcat_img": "Skincare.webp",
+      "status": "active"
     }
   ],
   "products": [
     {
-      "id": "e4ce",
+      "id": "89e9",
+      "categories": "ac7e",
+      "subcategories": "d520",
+      "products": "Lipsticks",
+      "productsDesc": "red, pink",
+      "price": "300",
+      "product_img": "Lipsticks.jpg",
+      "status": "active",
+      "updateAt": "2025-03-06T04:14:57.445Z"
+    },
+    {
+      "id": "a217",
       "categories": "35e5",
       "subcategories": "fd3b",
       "products": "T-Shirts",
       "productsDesc": "all size ",
-      "price": "300",
-      "product_img": "Mens t-shirt.jpg"
+      "price": "400",
+      "product_img": "Mens t-shirt.jpg",
+      "status": "active",
+      "createdAt": "2025-03-06T04:17:27.543Z",
+      "updateAt": "2025-03-06T04:17:47.249Z"
     },
     {
-      "id": "15b1",
+      "id": "e065",
       "categories": "35e5",
       "subcategories": "2fc4",
       "products": "Dresses",
       "productsDesc": "all size ",
-      "price": "250",
-      "product_img": "Dress.webp"
+      "price": "600",
+      "product_img": "Dress.webp",
+      "status": "active",
+      "createdAt": "2025-03-06T04:18:23.219Z",
+      "updateAt": "2025-03-06T04:18:23.219Z"
     },
     {
-      "id": "67e7",
+      "id": "fb25",
       "categories": "35e5",
       "subcategories": "dbc2",
       "products": "Frocks",
       "productsDesc": "small size",
-      "price": "200",
-      "product_img": "Frocks.webp"
+      "price": "300",
+      "product_img": "Frocks.webp",
+      "status": "active",
+      "createdAt": "2025-03-06T04:18:54.937Z",
+      "updateAt": "2025-03-06T04:18:54.937Z"
     },
     {
-      "id": "abbc",
-      "categories": "cce3",
-      "subcategories": "bae4",
-      "products": "Smartphones",
-      "productsDesc": "Oppo",
-      "price": "16000",
-      "product_img": "Smartphones.jpg"
-    },
-    {
-      "id": "1b3c",
-      "categories": "ac7e",
-      "subcategories": "b502",
-      "products": "Lipsticks",
-      "productsDesc": "red, pink",
-      "price": "500",
-      "product_img": "Lipsticks.jpg"
-    },
-    {
-      "id": "ce1c",
-      "categories": "5826",
-      "subcategories": "618c",
-      "products": "Cricket Bats",
+      "id": "d764",
+      "categories": "35e5",
+      "subcategories": "9e07",
+      "products": "Shoes",
       "productsDesc": "best price",
-      "price": "1250",
-      "product_img": "Cricket Bats.jpg"
+      "price": "250",
+      "product_img": "Shoes.webp",
+      "status": "active",
+      "createdAt": "2025-03-06T04:20:01.615Z",
+      "updateAt": "2025-03-06T04:20:01.615Z"
+    },
+    {
+      "id": "2676",
+      "categories": "cce3",
+      "subcategories": "06fa",
+      "products": "Smart phones",
+      "productsDesc": "OPPO K 12X 5G",
+      "price": "16000",
+      "product_img": "OPPO K 12X 5G.jpg",
+      "status": "active",
+      "createdAt": "2025-03-06T04:21:53.838Z",
+      "updateAt": "2025-03-06T04:21:53.838Z"
+    },
+    {
+      "id": "f7ac",
+      "categories": "cce3",
+      "subcategories": "71af",
+      "products": "Laptop",
+      "productsDesc": "ASUS GAMING LAPTOP",
+      "price": "50000",
+      "product_img": "ASUS GAMING LAPTOP.avif",
+      "status": "active",
+      "createdAt": "2025-03-06T04:24:03.027Z",
+      "updateAt": "2025-03-06T04:24:03.027Z"
+    },
+    {
+      "id": "7822",
+      "categories": "ac7e",
+      "subcategories": "a743",
+      "products": "Moisturizers",
+      "productsDesc": "good product",
+      "price": "1000",
+      "product_img": "Moisturizers.jpeg",
+      "status": "active",
+      "createdAt": "2025-03-06T04:31:03.892Z",
+      "updateAt": "2025-03-06T04:31:03.892Z"
     }
   ],
   "coupon": [
@@ -137,64 +191,178 @@
     {
       "id": "0dff",
       "code": "WXYZ",
-      "discount": "80"
-    },
-    {
-      "id": "009f",
-      "code": "MNOP",
-      "discount": "20"
+      "discount": "50"
     },
     {
       "id": "0deb",
       "code": "VAIBHAV",
-      "discount": "90"
+      "discount": "75"
     },
     {
       "id": "323f",
       "code": "AAAA",
       "discount": "5"
+    },
+    {
+      "id": "e5f7",
+      "code": "VIDISHA",
+      "discount": "80"
     }
   ],
   "order_list": [
     {
-      "id": "49b7",
-      "user_id": "vaibhav",
+      "id": "7a81",
+      "user_id": "d996",
       "cart": [
         {
-          "pid": "67e7",
-          "amount": "200",
-          "qty": 2
+          "pid": "a217",
+          "amount": "400",
+          "qty": 1
         },
         {
-          "pid": "e4ce",
+          "pid": "89e9",
           "amount": "300",
-          "qty": 4
+          "qty": 2
         },
         {
-          "pid": "15b1",
+          "pid": "e065",
+          "amount": "600",
+          "qty": 1
+        },
+        {
+          "pid": "f7ac",
+          "amount": "50000",
+          "qty": 1
+        },
+        {
+          "pid": "2676",
+          "amount": "16000",
+          "qty": 1
+        },
+        {
+          "pid": "d764",
           "amount": "250",
-          "qty": 2
+          "qty": 1
+        },
+        {
+          "pid": "fb25",
+          "amount": "300",
+          "qty": 1
+        },
+        {
+          "pid": "7822",
+          "amount": "1000",
+          "qty": 1
         }
       ],
-      "total_amount": 2100,
-      "billing_amount": 1680,
-      "discount": 20,
+      "total_amount": 69150,
+      "billing_amount": 62235,
+      "discount": 10,
       "billing_details": {
-        "fname": "vaibhav",
+        "fname": "Vaibhav",
         "Lname": "Gohil",
-        "email": "vaibhav9723142179@gmil.com",
+        "email": "vaibhav9723142179@gmail.com",
         "mobile": "7567058384",
-        "address": "Palitana ",
+        "address": "17, indiranagar, surat",
         "country": "India",
         "city": "Surat",
         "state": "Gujarat",
-        "zipcode": "546543",
+        "zipcode": "395006",
+        "check": true,
+        "payment": "directcheck"
+      },
+      "createdAt": "2025-03-06T05:18:29.500Z",
+      "updateAt": "2025-03-06T05:18:29.500Z",
+      "status": "cancel"
+    },
+    {
+      "id": "0ae4",
+      "user_id": "d996",
+      "cart": [
+        {
+          "pid": "f7ac",
+          "amount": "50000",
+          "qty": 1
+        },
+        {
+          "pid": "2676",
+          "amount": "16000",
+          "qty": 1
+        },
+        {
+          "pid": "d764",
+          "amount": "250",
+          "qty": 1
+        }
+      ],
+      "total_amount": 66250,
+      "billing_amount": 59625,
+      "discount": 10,
+      "billing_details": {
+        "fname": "Vidisha",
+        "Lname": "Gohil",
+        "email": "vidishavaibhav18@gmail.com",
+        "mobile": "7567058384",
+        "address": "17, indiranagar, surat",
+        "country": "India",
+        "city": "Surat",
+        "state": "Gujarat",
+        "zipcode": "395006",
         "check": true,
         "payment": "paypal"
       },
-      "createdAt": "2025-02-14T10:30:42.967Z",
-      "updateAt": "2025-02-14T10:30:42.967Z",
-      "status": ""
+      "createdAt": "2025-03-06T05:22:30.352Z",
+      "updateAt": "2025-03-06T05:22:30.352Z",
+      "status": "accepte"
+    }
+  ],
+  "auth": [
+    {
+      "id": "d996",
+      "name": "Vidisha Vaibhav",
+      "email": "vidishavaibhav18@gmail.com",
+      "password": "Vidisha@18",
+      "confirm_password": "Vidisha@18",
+      "isActive": true
+    },
+    {
+      "id": "ef88",
+      "name": "Vaibhav Gohil",
+      "email": "vaibhav9723142179@gmail.com",
+      "password": "Vaibhav@123",
+      "confirm_password": "Vaibhav@123",
+      "isActive": true
+    },
+    {
+      "id": "463c",
+      "name": "priya",
+      "email": "piyu10426@gmail.com",
+      "password": "Priya@111",
+      "confirm_password": "Priya@111",
+      "isActive": true
+    }
+  ],
+  "contact": [
+    {
+      "id": "dfaa",
+      "name": "Vaibhav",
+      "email": "vaibhav9723142179@gmail.com",
+      "subject": "asdasd wwa",
+      "message": "wwa eqwe qqearew rerwe 2erwer werwewe rew weerwefsdfs qwedsad sd f"
+    },
+    {
+      "id": "c8d5",
+      "name": "vidisha",
+      "email": "vidishavaibhav18@gmail.com",
+      "subject": "hello hello",
+      "message": "good morning, good morning, good morning, good morning, good morning, "
+    },
+    {
+      "id": "8548",
+      "name": "priya",
+      "email": "piyu10426@gmail.com",
+      "subject": "good ",
+      "message": "hello priya hello priya hello priya hello priya hello priya hello priya "
     }
   ]
 }

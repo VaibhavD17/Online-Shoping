@@ -5,7 +5,7 @@ import { getCoupon } from '../../Redux/Slice/Coupon.slice';
 import { getProducts } from '../../Redux/Slice/Products.slice';
 import { useFormik } from 'formik';
 import { object, string } from 'yup';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function Cart(props) {
     const dispatch = useDispatch();
@@ -14,12 +14,19 @@ function Cart(props) {
     const products = useSelector(state => state.products.products)
     const coupon = useSelector(state => state.coupon.coupon)
     const [discount, setDiscount] = useState('')
+    const auth = useSelector(state => state.auth.auth)
+    
 
     const fData = cart.map((v) => {
         const pData = products.find((v1) => v1.id === v.pid)
 
+
         return { ...pData, qty: v.qty }
     })
+
+
+
+
 
     const handleIncrement = (id) => {
         dispatch(increment(id))
@@ -33,16 +40,24 @@ function Cart(props) {
         dispatch(deleteCart(id))
     }
 
-    
+
+
 
 
     const getData = () => {
         dispatch(getCoupon())
         dispatch(getProducts())
+
+        
+
+
     }
 
     useEffect(() => {
         getData();
+
+        
+
     }, [])
 
     let codeSchema = object({
@@ -81,9 +96,9 @@ function Cart(props) {
         },
     });
 
-    const { handleSubmit, handleChange, handleBlur, resetForm, setValues, values, errors, touched, setSubmitting , isSubmitting} = formik
+    const { handleSubmit, handleChange, handleBlur, resetForm, setValues, values, errors, touched, setSubmitting, isSubmitting } = formik
 
-    
+
     const subtotal = fData.reduce((acc, v) => acc + (v.price * v.qty), 0);
     const totalDiscount = isSubmitting && discount ? (subtotal * discount) / 100 : 0;
     const total = subtotal - totalDiscount;
@@ -182,7 +197,7 @@ function Cart(props) {
                                 </div>
                                 <div className="d-flex justify-content-between mb-3">
                                     <h6 className="font-weight-medium">Discount</h6>
-                                    <h6 className="font-weight-medium">{isSubmitting && discount  ?  discount + "%" : 0 }</h6>
+                                    <h6 className="font-weight-medium">{isSubmitting && discount ? discount + "%" : 0}</h6>
                                 </div>
                                 <div className="d-flex justify-content-between">
                                     <h6 className="font-weight-medium">Discount Amount</h6>
@@ -195,10 +210,10 @@ function Cart(props) {
                                     <h5>{total}</h5>
                                 </div>
                                 <NavLink
-                                 to={{pathname:'/checkout'}}
-                                 state={{discount:discount}}
-                                 >
-                                    <button type='button' className="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                                    to={{ pathname: '/checkout' }}
+                                    state={{ discount: discount }}
+                                >
+                                    <button type='button' disabled={auth && cart.length > 0 ? false : true} className="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
                                 </NavLink>
                             </div>
                         </div>

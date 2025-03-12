@@ -14,6 +14,8 @@ function Checkout(props) {
     const cart = useSelector(state => state.cart.cart)
     const products = useSelector(state => state.products.products)
     const navigate = useNavigate();
+    const auth = useSelector(state => state.auth.auth)
+    
 
     const fData = cart.map((v) => {
         const Pdata = products.find((v1) => v.pid === v1.id)
@@ -112,6 +114,9 @@ function Checkout(props) {
 
     });
 
+    console.log(auth);
+    
+
     const formik = useFormik({
         initialValues: {
             fname: '',
@@ -130,15 +135,15 @@ function Checkout(props) {
         onSubmit: (values, { resetForm }) => {
 
             dispatch(addBilling({
-                user_id: 'vaibhav',
+                user_id: auth?.id,
                 cart: cart,
-                total_amount:Subtotal,
-                billing_amount:total,
-                discount:parseInt(discounts),
-                billing_details:values,
+                total_amount: Subtotal,
+                billing_amount: total,
+                discount: parseInt(discounts),
+                billing_details: values,
                 createdAt: new Date(),
-                updateAt: new Date (),
-                status:'panding'
+                updateAt: new Date(),
+                status: 'panding'
 
             }))
 

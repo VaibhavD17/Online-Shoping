@@ -1,37 +1,38 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { getCategories } from '../../Redux/Slice/Categorie.slice';
 import { getProducts } from '../../Redux/Slice/Products.slice';
 import { getSubCategories } from '../../Redux/Slice/Subcategorie.slice';
 import { useDispatch, useSelector } from 'react-redux';
-import { addtoCart, decrement, increment } from '../../Redux/Slice/Cart.slice';
+import { addtoCart } from '../../Redux/Slice/Cart.slice';
 
 function ShopDetails(props) {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.categories.categories)
-    const subCategories = useSelector(state => state.subCategories.subCategories)
-    const products = useSelector(state => state.products.products)
-    const cart = useSelector(state => state.cart.cart)
+
+
+    const productsData = useSelector(state => state.products.products)
+    const products = productsData.filter((v) => v.status === 'active')
+
+    const categoriesData = useSelector(state => state.categories.categories)
+    const categories = categoriesData.filter((v) => v.status === 'active')
+
 
     const fData = products.find((v) => v.id === id)
 
     console.log(fData);
-    
+
+    console.log(id);
+
+
+
+
 
     const handleCart = (data) => {
-       dispatch(addtoCart(data))     
+        dispatch(addtoCart(data))
     }
 
-    const handleIncrement = (id) => {
-            dispatch(increment(id))
-        }
-    const handleDecrement = (id) => {
-            dispatch(decrement(id))
-        }
-    
 
-   
     const getData = () => {
         dispatch(getCategories())
         dispatch(getProducts())
@@ -52,57 +53,58 @@ function ShopDetails(props) {
                         <div id="product-carousel" className="carousel slide" data-ride="carousel">
                             <div className="carousel-inner bg-light">
                                 <div className="carousel-item active">
-                                    <img className="w-100 h-100" src={"../img/"+ fData.product_img} alt="Image" />
+                                    <img className="w-100 h-100" src={"../img/" + fData?.product_img} alt="Image" />
                                 </div>
 
-                                
+
                             </div>
-                            
+
                         </div>
                     </div>
                     <div className="col-lg-7 h-auto mb-30">
-                        
-                                <div className="h-100 bg-light p-30">
 
-                                    <h3>{fData.products}</h3>
-                                    <div className="d-flex mb-3">
-                                        <div className="text-primary mr-2">
-                                            <small className="fas fa-star" />
-                                            <small className="fas fa-star" />
-                                            <small className="fas fa-star" />
-                                            <small className="fas fa-star-half-alt" />
-                                            <small className="far fa-star" />
-                                        </div>
-                                        <small className="pt-1">(99 Reviews)</small>
-                                    </div>
-                                    <h3 className="font-weight-semi-bold mb-4">${fData.price}</h3>
-                                    <p className="mb-4">{fData.productsDesc}</p>
+                        <div className="h-100 bg-light p-30">
 
-                                    
-                                    
-                                    <div className="d-flex align-items-center mb-4 pt-2">
-                                       
-                                        <a className="btn btn-primary px-3" onClick={() => handleCart(fData)}><i className="fa fa-shopping-cart mr-1" /> Add To
-                                            Cart</a>
-                                    </div>
-                                    <div className="d-flex pt-2">
-                                        <strong className="text-dark mr-2">Share on:</strong>
-                                        <div className="d-inline-flex">
-                                            <a className="text-dark px-2" href>
-                                                <i className="fab fa-facebook-f" />
-                                            </a>
-                                            <a className="text-dark px-2" href>
-                                                <i className="fab fa-twitter" />
-                                            </a>
-                                            <a className="text-dark px-2" href>
-                                                <i className="fab fa-linkedin-in" />
-                                            </a>
-                                            <a className="text-dark px-2" href>
-                                                <i className="fab fa-pinterest" />
-                                            </a>
-                                        </div>
-                                    </div>
+                            <h3>{fData?.products}</h3>
+                            <div className="d-flex mb-3">
+                                <div className="text-primary mr-2">
+                                    <small className="fas fa-star" />
+                                    <small className="fas fa-star" />
+                                    <small className="fas fa-star" />
+                                    <small className="fas fa-star-half-alt" />
+                                    <small className="far fa-star" />
                                 </div>
+                                <small className="pt-1">(99 Reviews)</small>
+                            </div>
+                            <h3 className="font-weight-semi-bold mb-4">${fData?.price}</h3>
+                            <p className="mb-4">{fData?.productsDesc}</p>
+
+
+
+                            <div className="d-flex align-items-center mb-4 pt-2">
+
+                                <NavLink to={'/cart'} className="btn btn-primary px-3" onClick={() => handleCart(fData)}><i className="fa fa-shopping-cart mr-1" /> Add To
+                                    Cart
+                                </NavLink>
+                            </div>
+                            <div className="d-flex pt-2">
+                                <strong className="text-dark mr-2">Share on:</strong>
+                                <div className="d-inline-flex">
+                                    <a className="text-dark px-2" href>
+                                        <i className="fab fa-facebook-f" />
+                                    </a>
+                                    <a className="text-dark px-2" href>
+                                        <i className="fab fa-twitter" />
+                                    </a>
+                                    <a className="text-dark px-2" href>
+                                        <i className="fab fa-linkedin-in" />
+                                    </a>
+                                    <a className="text-dark px-2" href>
+                                        <i className="fab fa-pinterest" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="row px-xl-5">

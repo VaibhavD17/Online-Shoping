@@ -10,21 +10,26 @@ import { mixed, object, string } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FormControl, FormHelperText, IconButton, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { FormControl, FormHelperText, IconButton, InputLabel, MenuItem, OutlinedInput, Select, Switch } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import EditIcon from '@mui/icons-material/Edit';
 import { useFormik } from 'formik';
 import { getCategories } from '../../../Redux/Slice/Categorie.slice';
-import { addSubCategories, deleteSubCategories, getSubCategories, updateSubcategories } from '../../../Redux/Slice/Subcategorie.slice';
-import { data } from 'react-router-dom';
+import { addSubCategories, deleteSubCategories, getSubCategories, updateSubcategories, updateSubcategorieStatus } from '../../../Redux/Slice/Subcategorie.slice';
+
 
 function SubCategories(props) {
     const [open, setOpen] = React.useState(false);
     const [update, setUpdate] = useState('');
     const dispatch = useDispatch();
-
     const categorie = useSelector(state => state.categories.categories)
     const subCategories = useSelector(state => state.subCategories.subCategories)
+
+    const handleChangecheckd = (data) =>{
+
+        dispatch(updateSubcategorieStatus(data))
+        
+    }
 
     const getData = () => {
         dispatch(getCategories())
@@ -71,14 +76,15 @@ function SubCategories(props) {
                 return categorie.find((v) => v.id === params.row.categories)?.categories
             }
         },
-        { field: 'subcategories', headerName: "SubCategories", width: 200 },
-        { field: 'subcategoriesDesc', headerName: "SubCategories Description", width: 300 },
+        { field: 'subcategories', headerName: "SubCategories", width: 230 },
+        { field: 'subcategoriesDesc', headerName: "Description", width: 200 },
         {
             field: 'subcat_img', headerName: "SubCategories Image", width: 200,
             renderCell: (params) => (
                 <img src={"../img/" + params.row.subcat_img} width={"80px"} height={"80px"} />
             )
         },
+        { field: 'status', headerName: "status", width: 150 },
         {
             field: 'action', headerName: "Action", width: 100,
             renderCell: (params) => {
@@ -93,7 +99,21 @@ function SubCategories(props) {
                     </>
                 )
             }
-        }
+        },
+        {
+            field: 'statusAction', headerName: "Status Action", width: 100,
+            renderCell: (params) => {
+                return (
+                    <>
+                        <Switch
+                            checked={params.row.status === 'active' ? true : false}
+                            onChange={() => handleChangecheckd(params.row)}
+                        />
+
+                    </>
+                )
+            }
+        },
 
     ]
 
@@ -115,9 +135,9 @@ function SubCategories(props) {
         onSubmit: (values, { resetForm }) => {
 
             if (update) {
-                handleUpdate({ ...values, subcat_img: typeof values.subcat_img === "string" ? values.subcat_img : values.subcat_img.name })
+                handleUpdate({ ...values, status: 'active', subcat_img: typeof values.subcat_img === "string" ? values.subcat_img : values.subcat_img.name })
             } else {
-                handleAdd({ ...values, subcat_img: values.subcat_img.name })
+                handleAdd({ ...values, status: 'active', subcat_img: values.subcat_img.name })
             }
 
             resetForm();
@@ -213,17 +233,17 @@ function SubCategories(props) {
                 <DataGrid
                     rows={subCategories}
                     columns={columns}
+                    style={{padding: '20px'}}
                     initialState={{
                         pagination: {
                             paginationModel: {
                                 page: 0,
-                                // pageSize: 5,
+                                pageSize: 10,
 
                             },
                         },
                     }}
-                    pageSizeOptions={[5, 10]}
-                    checkboxSelection
+                   
                     rowHeight={100}
                 />
             </div>
