@@ -45,7 +45,7 @@ function Header(props) {
                         <div className="btn-group">
                                 {
                                     auth ? 
-                                    <p className='user-name'> <b>User Name :</b>{auth.name}</p>
+                                    <p className='user-name'> <b>User Name :- </b>{auth.name}</p>
                                     : 
                                     null
                                 }

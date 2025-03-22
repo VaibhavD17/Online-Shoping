@@ -11271,4 +11271,6 @@ input[type="password"], input[type="email"]{
 .user-name{
   font-size: 15px ;
   text-align: center;
+  margin-right: 10px;
+  margin-bottom: 0 !important;
 }
