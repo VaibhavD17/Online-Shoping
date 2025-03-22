@@ -41,12 +41,13 @@ function MyOrder(props) {
         setOrderData(data)
     }
 
-    // console.log(orderData);
-    // console.log(orderList);
-    // console.log(fData);
-    // console.log(products);
+    console.log(orderData);
+    console.log(orderList);
+    console.log(fData);
+    console.log(products);
 
     console.log(pData);
+console.log(auth);
 
 
 

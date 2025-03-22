@@ -127,6 +127,7 @@ function Cart(props) {
                         <table className="table table-light table-borderless table-hover text-center mb-0">
                             <thead className="thead-dark">
                                 <tr>
+                                    <th>Product Image</th>
                                     <th>Products</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
@@ -138,6 +139,7 @@ function Cart(props) {
                                 {
                                     fData.map((v) => (
                                         <tr>
+                                            <td className="align-middle"><img src={`../img/${v.product_img}`} width={50} height={50}/></td>
                                             <td className="align-middle">{v.products}</td>
                                             <td className="align-middle">{v.price}</td>
                                             <td className="align-middle">
