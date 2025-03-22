@@ -11268,3 +11268,7 @@ input[type="password"], input[type="email"]{
 
 /* user subCategories */
 
+.user-name{
+  font-size: 15px ;
+  text-align: center;
+}
