@@ -123,10 +123,10 @@ export default function Layout({children}) {
   const listItem = [
     { label: 'Categories', icon: <CategoryRoundedIcon style={{color: "#FFFFFF",}}  />, to: '/admin/categories' },
     { label: 'SubCategories', icon: <AutoAwesomeMotionRoundedIcon style={{color: "#FFFFFF",}} />, to: '/admin/subcategories' },
-    { label: 'products', icon: <ShoppingBagIcon style={{color: "#FFFFFF",}} />, to: '/admin/products' },
-    { label: 'coupon', icon: <LocalOfferIcon style={{color: "#FFFFFF",}} />, to: '/admin/coupon' },
-    { label: 'OrderList', icon: <ViewListIcon style={{color: "#FFFFFF",}} />, to: '/admin/orderList' },
-    { label: 'Contact', icon: <ContactPageIcon  style={{color: "#FFFFFF",}} />, to: '/admin/contact' },
+    { label: 'Products', icon: <ShoppingBagIcon style={{color: "#FFFFFF",}} />, to: '/admin/products' },
+    { label: 'Coupons', icon: <LocalOfferIcon style={{color: "#FFFFFF",}} />, to: '/admin/coupon' },
+    { label: 'Orders', icon: <ViewListIcon style={{color: "#FFFFFF",}} />, to: '/admin/orderList' },
+    { label: 'Contacts', icon: <ContactPageIcon  style={{color: "#FFFFFF",}} />, to: '/admin/contact' },
   ]
 
 
