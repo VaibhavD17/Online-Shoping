@@ -15,7 +15,7 @@ function Header(props) {
     const favorite = useSelector(state => state.favorite.favorite)
 
     console.log(cart);
-    
+
 
 
     const handleLogout = () => {
@@ -37,20 +37,23 @@ function Header(props) {
             {/* Topbar Start */}
             <div className="container-fluid">
                 <div className="row bg-secondary py-1 px-xl-5">
-                    <div className="col-lg-6 d-none d-lg-block">
+                    {/* <div className="col-lg-6 d-none d-lg-block">
 
-                    </div>
+                    </div> */}
                     <div className="col-lg-6 text-center text-lg-right">
-                        <div className="d-inline-flex align-items-center">
-                        <div className="btn-group">
+                    <div className="btn-group">
                                 {
-                                    auth ? 
-                                    <p className='user-name'> <b>User Name :- </b>{auth.name}</p>
-                                    : 
-                                    null
+                                    auth ?
+                                        <p className='user-name'> <b>User Name :- </b>{auth.name}</p>
+                                        :
+                                        null
                                 }
 
                             </div>
+                    </div>
+                    <div className="col-lg-6 text-center text-lg-right">
+                        <div className="d-inline-flex align-items-center">
+                           
                             <div className="btn-group">
                                 {
                                     auth ? <NavLink to={'/myorder'}>
@@ -82,14 +85,14 @@ function Header(props) {
                                 <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>{favorite.length}</span>
                             </NavLink>
                             {
-                               cart.length > 0 ?
-                                 <NavLink to={'/cart'} className="btn px-0 ml-2">
-                                    <i className="fas fa-shopping-cart text-dark" />
-                                    <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>
-                                </NavLink>
+                                cart.length > 0 ?
+                                    <NavLink to={'/cart'} className="btn px-0 ml-2">
+                                        <i className="fas fa-shopping-cart text-dark" />
+                                        <span className="badge text-dark border border-dark rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>
+                                    </NavLink>
                                     :
                                     <button disabled className="btn px-0 ml-2 ">
-                                        <i className="fas fa-shopping-cart  text-dark"/>
+                                        <i className="fas fa-shopping-cart  text-dark" />
                                         <span className="badge  border border-dark  rounded-circle text-dark" style={{ paddingBottom: 2 }}>{fData}</span>
                                     </button>
                             }
@@ -161,17 +164,17 @@ function Header(props) {
                                     </NavLink>
                                     {
                                         cart.length > 0 ? <NavLink to={'/cart'} className="btn px-0 ml-3">
-                                        <i className="fas fa-shopping-cart text-primary" />
-                                        <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>
-                                    </NavLink> 
-                                    : 
-                                     <button disabled className="btn px-0 ml-2 btn-disable">
-                                        <i className="fas fa-shopping-cart  btn-disable"/>
-                                        <span className="badge  border  rounded-circle btn-disable" style={{ paddingBottom: 2 }}>0</span>
-                                    </button>
+                                            <i className="fas fa-shopping-cart text-primary" />
+                                            <span className="badge text-secondary border border-secondary rounded-circle" style={{ paddingBottom: 2 }}>{fData}</span>
+                                        </NavLink>
+                                            :
+                                            <button disabled className="btn px-0 ml-2 btn-disable">
+                                                <i className="fas fa-shopping-cart  btn-disable" />
+                                                <span className="badge  border  rounded-circle btn-disable" style={{ paddingBottom: 2 }}>0</span>
+                                            </button>
 
                                     }
-                                    
+
                                 </div>
                             </div>
                         </nav>
